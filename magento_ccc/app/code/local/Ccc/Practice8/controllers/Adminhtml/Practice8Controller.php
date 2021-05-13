@@ -34,8 +34,8 @@ class Ccc_Practice8_Adminhtml_Practice8Controller extends Mage_Adminhtml_Control
 	{
 		$id = $this->getRequest()->getParam('id');
 		$model = $this->_initPractice8();
-		if($id && !$model->getId()){
-			Mage::getSingleton('adminhtml/session')->addError(Mage::helper('practice8')->__('This practice8 no longer exists'));
+	   if($id && !$model->getId()){
+        	Mage::getSingleton('adminhtml/session')->addError(Mage::helper('practice8')->__('This practice8 no longer exists'));
 			$this->_redirect('*/*/');
 		}
 		$this->loadLayout();

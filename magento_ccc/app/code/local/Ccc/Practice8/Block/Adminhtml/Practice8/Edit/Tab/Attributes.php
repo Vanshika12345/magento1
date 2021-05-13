@@ -28,13 +28,14 @@ class Ccc_Practice8_Block_Adminhtml_Practice8_Edit_Tab_Attributes extends Mage_A
 		$form->setDataObject($this->getPractice8());
 		$form->setHtmlIdPrefix('group_' . $group->getId());
         $form->setFieldNameSuffix('practice8');
-		$fieldset = $form->addFieldSet('group_'.$group->getId(),[
+		$fieldset = $form->addFieldSet('fieldset_group_'.$group->getId(),[
 			'legend' => Mage::helper('practice8')->__($group->getAttributeGroupName()),
 			'class' => 'fieldset'
 		]);	
+		
+		$this->_setFieldset($attributes,$fieldset);
 
 		$form->addValues($this->getPractice8()->getData());
-		$this->_setFieldset($attributes,$fieldset);
 		return parent::_prepareForm();
 	}
 	
