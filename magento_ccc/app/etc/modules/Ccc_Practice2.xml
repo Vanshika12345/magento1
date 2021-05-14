@@ -2,7 +2,7 @@
 <config>
 	<modules>
 		<Ccc_Practice2>
-			<active>false</active>
+			<active>true</active>
 			<codePool>local</codePool>
 		</Ccc_Practice2>
 	</modules>
