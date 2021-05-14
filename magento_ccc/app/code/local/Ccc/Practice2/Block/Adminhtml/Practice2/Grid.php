@@ -32,8 +32,7 @@ class Ccc_Practice2_Block_Adminhtml_Practice2_Grid extends Mage_Adminhtml_Block_
 			'header' => Mage::helper('practice2')->__('Created At'),
 			'index' => 'createdAt',
 			'type' => 'date',
-			'default' => '-',
-			'format' => 'Y-m-d H:mm:s'
+			'default' => '-'
 		]);
 		return parent::_prepareColumns();		
 	}
