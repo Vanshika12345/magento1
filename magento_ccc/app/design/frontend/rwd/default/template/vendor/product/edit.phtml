@@ -1,0 +1,19 @@
+<form id="edit_form" method="POST" action="<?= $this->getUrl('*/*/save', ['id' => $this->getRequest()->getParam('id')]) ?>">
+	<button type="submit" class="button">Save</button>
+	<?php if ($this->getRequest()->getParam('id')): ?>
+		<button type="button" class="button" onclick="deleteProduct()">Delete</button>
+	<?php endif ?>
+	<hr>
+</form>
+
+<script type="text/javascript">
+	function deleteProduct() {
+		confirm = confirm('Are Sure You Want to Delete this Product');
+		if (confirm == true) 
+		{
+			window.location = '<?= $this->getUrl('*/*/delete', ['id' => $this->getRequest()->getParam('id')]) ?>';
+		} else {
+			return;
+		}
+	}
+</script>

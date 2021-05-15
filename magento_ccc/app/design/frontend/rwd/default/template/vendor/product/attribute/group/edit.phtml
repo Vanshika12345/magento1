@@ -1,0 +1,26 @@
+<div class="page-title">
+    <h1><?php echo $this->__('Attribute Group Information') ?></h1>
+</div>
+<?php echo $this->getMessagesBlock()->toHtml() ?>
+<form action="<?php echo $this->getUrl('*/*/save',['group_id' => $this->getGroupData()->getGroupId()]) ?>" method="post" id="form-validate" autocomplete="off">
+	<div class="fieldset">
+        <?php echo $this->getBlockHtml('formkey')?>
+        <h4 class="legend"><?php echo $this->__('Group Information') ?></h4>
+        <ul class="form-list">
+            <li>
+                <label for="group_name" class="required"><em>*</em><?php echo $this->__('Group Name') ?></label>
+                <div class="input-box">
+                    <input type="text" name="group_name" id="group_name" value="<?php echo $this->escapeHtml($this->getGroupData()->getGroupName()) ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Group Name')) ?>" class="input-text required-entry" />
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="buttons-set">
+        <p class="back-link"><a href="<?php echo $this->escapeUrl($this->getBackUrl()) ?>"><small>&laquo; </small><?php echo $this->__('Back') ?></a></p>
+        <button type="submit" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Save')) ?>" class="button"><span><span><?php echo $this->__('Save') ?></span></span></button>
+    </div>
+</form>
+<script type="text/javascript">
+//<![CDATA[
+    var dataForm = new VarienForm('form-validate', true);
+</script>
