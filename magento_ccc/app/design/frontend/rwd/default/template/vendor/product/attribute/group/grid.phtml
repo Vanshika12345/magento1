@@ -1,0 +1,42 @@
+<?php echo $this->getMessagesBlock()->toHtml() ?>
+<?php $_groups = $this->getCollection(); ?>
+<div class="page-title">
+    <h1><?php echo $this->__('My Attribute Groups') ?></h1>
+</div>
+<?php echo $this->getChildHtml('info');?>
+<?php echo $this->getPagerHtml(); ?>
+<div class="buttons-set">
+    <a href="<?php echo $this->getAddUrl() ?>" class="button" title="<?php echo $this->quoteEscape($this->__('Add New')) ?>" name="add" id="add"><span><span><?php echo $this->__('Add New') ?></span></span></a>
+</div>
+<table class="data-table" id="my-attribute-table">
+    <col width="1" />
+    <col width="1" />
+    <col width="1" />
+    <thead>
+        <tr>
+            <th class="number"><?php echo $this->__('Group #') ?></th>
+            <th class="total"><span class="nobr"><?php echo $this->__('Group Name') ?></span></th> 
+            <th colspan="2"><?php echo $this->__('Action')?></th>   
+        </tr>
+    </thead>
+    <tbody>
+    <?php if($_groups->getSize()): ?>
+      <?php foreach ($_groups as $_group): ?>
+        <tr>
+            <td class="number"><?php echo $_group->getId() ?></td>
+            <td><em><?php echo $_group->getGroupName()?></em></td>
+            <td>
+                <span class="nobr"><a href="<?php echo $this->getEditUrl($_group) ?>"><?php echo $this->__('Edit') ?></a>
+                </span> | 
+                <span class="nobr"><a href="<?php echo $this->getDeleteUrl($_group) ?>"><?php echo $this->__('Delete') ?></a>
+                </span>
+            </td>
+        </tr>
+       <?php endforeach; ?>
+    <?php else: ?>
+        <tr><td colspan="3"><?php echo $this->__('You have no groups.'); ?></td></tr>
+    <?php endif ?>
+    </tbody>
+</table>
+<script type="text/javascript">decorateTable('my-orders-table');</script>
+<?php echo $this->getPagerHtml(); ?>

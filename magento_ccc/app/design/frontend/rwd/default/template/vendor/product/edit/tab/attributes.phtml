@@ -1,0 +1,55 @@
+<?php 
+$attributes = $this->getAttributes();
+$productData = $this->getProduct(); 
+?>
+
+<?php foreach ($attributes as $attribute): ?>
+	<?php if ($attribute->usesSource()): ?>
+		<?php $options = $attribute->getSource()->getAllOptions();?>
+	<?php endif ?>
+	<?php if ($attribute->frontend_input == 'text' && $attribute->frontend_label): ?>
+		<div>
+			<label><?= $attribute->frontend_label ?></label>
+			<input id="<?= $attribute->attribute_code ?>" type="<?= $attribute->frontend_input ?>" name="<?= $attribute->attribute_code ?>" value="<?= $productData->getData($attribute->attribute_code) ?>">
+		</div>
+	<?php elseif($attribute->frontend_input == 'textarea'): ?>
+		<div>
+			<label><?= $attribute->frontend_label ?></label>
+			<<?= $attribute->frontend_input ?> id="<?= $attribute->attribute_code ?>" name="<?= $attribute->attribute_code ?>" rows="5"><?= $productData->getData($attribute->attribute_code) ?></<?= $attribute->frontend_input ?>>
+		</div>
+	<?php elseif($attribute->frontend_input == 'select'): ?>
+		<div>
+			<label><?= $attribute->frontend_label ?></label>
+			<<?= $attribute->frontend_input ?> id="<?= $attribute->attribute_code ?>" name="<?= $attribute->attribute_code ?>">
+				<?php foreach ($options as $option): ?>
+					<option value="<?= $option['value'] ?>" <?php if ($productData->getData($attribute->attribute_code) == $option['value']): ?> selected <?php endif ?> ><?= $option['label'] ?></option>
+				<?php endforeach; ?>
+			</<?= $attribute->frontend_input ?>>
+		</div>
+	<?php elseif($attribute->frontend_input == 'date'): ?>
+		<div>
+			<label><?= $attribute->frontend_label ?></label>
+			<input type="<?= $attribute->frontend_input ?>" value="<?= $productData->getData($attribute->attribute_code) ?>" id="<?= $attribute->attribute_code ?>" name="<?= $attribute->attribute_code ?>">
+		</div>
+
+	<?php elseif($attribute->frontend_input == 'multiselect'): ?>
+		<div>
+			<label><?= $attribute->frontend_label ?></label>
+			<<?= $attribute->frontend_input ?> id="<?= $attribute->attribute_code ?>" name="<?= $attribute->attribute_code ?>">
+				<?php foreach ($options as $option): ?>
+					<option value=">?= $option['value'] ?>"><?= $option['label'] ?></option>
+				<?php endforeach ?>
+			</<?= $attribute->frontend_input ?>>
+		</div>
+
+	<?php elseif($attribute->frontend_input == 'price'): ?>
+		<div>
+			<label><?= $attribute->frontend_label ?></label>
+			<input type="text" id="<?= $attribute->attribute_code ?>" value="<?= $productData->getData($attribute->attribute_code) ?>" name="<?= $attribute->attribute_code ?>">
+		</div>
+
+	<?php endif ?>
+
+<?php endforeach ?>
+
+
