@@ -10,7 +10,6 @@ $installer->run(
     DROP TABLE IF EXISTS `{$installer->getTable('vendor_char')}`;
     DROP TABLE IF EXISTS `{$installer->getTable('vendor')}`;
     DROP TABLE IF EXISTS `{$installer->getTable('vendor_eav_attribute')}`;
-    }`;
     DELETE FROM `eav_entity_type` WHERE `entity_type_code` IN('vendor');
     DELETE FROM `core_resource` WHERE `code` = 'vendor_setup';"
 );
