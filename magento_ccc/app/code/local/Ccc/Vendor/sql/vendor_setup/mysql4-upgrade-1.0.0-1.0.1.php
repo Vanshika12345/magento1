@@ -1,7 +1,7 @@
 <?php
 
 $installer = $this;
-
+$installer->startSetup();
 $table = $installer->getConnection()
     ->newTable($installer->getTable('vendor/eav_attribute'))
     ->addColumn('attribute_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
@@ -107,9 +107,6 @@ $table = $installer->getConnection()
         Varien_Db_Ddl_Table::ACTION_CASCADE, Varien_Db_Ddl_Table::ACTION_CASCADE)
     ->setComment('vendor EAV Attribute Table');
 
-$query = "ALTER TABLE `vendor_varchar` ADD UNIQUE( `attribute_id`, `store_id`, `entity_id`)";
-$installer->getConnection()->query($query);
-
 $installer->getConnection()->createTable($table);
 
 $setup = new Mage_Eav_Model_Entity_Setup('core_setup');
@@ -190,3 +187,4 @@ $setup->addAttribute(Ccc_Vendor_Model_Resource_Vendor::ENTITY, 'phoneNo', array(
 ));
 
 $installer->endSetup();
+?>

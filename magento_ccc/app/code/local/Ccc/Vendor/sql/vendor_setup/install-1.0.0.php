@@ -1,5 +1,21 @@
 <?php
 
+$installer = $this;
+$installer->run(
+    "DROP TABLE IF EXISTS `{$installer->getTable('vendor_int')}`;
+    DROP TABLE IF EXISTS `{$installer->getTable('vendor_varchar')}`;
+    DROP TABLE IF EXISTS `{$installer->getTable('vendor_datetime')}`;
+    DROP TABLE IF EXISTS `{$installer->getTable('vendor_decimal')}`;
+    DROP TABLE IF EXISTS `{$installer->getTable('vendor_text')}`;
+    DROP TABLE IF EXISTS `{$installer->getTable('vendor_char')}`;
+    DROP TABLE IF EXISTS `{$installer->getTable('vendor')}`;
+    DROP TABLE IF EXISTS `{$installer->getTable('vendor_eav_attribute')}`;
+    }`;
+    DELETE FROM `eav_entity_type` WHERE `entity_type_code` IN('vendor');
+    DELETE FROM `core_resource` WHERE `code` = 'vendor_setup';"
+);
+
+
 $this->startSetup();
 
 $this->addEntityType(Ccc_Vendor_Model_Resource_Vendor::ENTITY, [
@@ -12,11 +28,17 @@ $this->addEntityType(Ccc_Vendor_Model_Resource_Vendor::ENTITY, [
 ]);
 
 $this->createEntityTables('vendor');
-$this->installEntities();
+//$this->installEntities();
 
 $default_attribute_set_id = Mage::getModel('eav/entity_setup', 'core_setup')
-    						->getAttributeSetId('vendor', 'Default');
+                            ->getAttributeSetId('vendor', 'Default');
 
 $this->run("UPDATE `eav_entity_type` SET `default_attribute_set_id` = {$default_attribute_set_id} WHERE `entity_type_code` = 'vendor'");
 
+$query = "ALTER TABLE `vendor_varchar` ADD UNIQUE( `attribute_id`, `store_id`, `entity_id`)";
+$this->getConnection()->query($query);
+
 $this->endSetup();
+
+?>
+
