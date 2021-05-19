@@ -28,6 +28,7 @@ class Ccc_Practice2_Adminhtml_Practice2Controller extends Mage_Adminhtml_Control
 	{
 		try{
 			date_default_timezone_set('Asia/Kolkata');
+			
 			$id = $this->getRequest()->getParam('id');
 			$practice2Model = Mage::getModel('practice2/practice2')->load($id);
 			$practice2Data = $this->getRequest()->getPost('practice2');
