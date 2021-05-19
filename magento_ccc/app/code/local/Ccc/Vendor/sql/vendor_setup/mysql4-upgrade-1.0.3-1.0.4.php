@@ -11,7 +11,7 @@ $this->addEntityType(Ccc_Vendor_Model_Resource_Product::ENTITY, [
 ]);
 
 $this->installEntities();
-
+//vendor ki jagah vendor_product
 $default_attribute_set_id = Mage::getModel('eav/entity_setup', 'core_setup')
 	->getAttributeSetId('vendor', 'Default');
 

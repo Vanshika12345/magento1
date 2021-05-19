@@ -68,9 +68,8 @@ class Ccc_Vendor_Product_Attribute_GroupController extends Mage_Core_Controller_
 				Mage::getSingleton('vendor/session')->addError("Invalid Entity Group Id");
 			}
 
-			$defaultId = Mage::getSingleton('vendor/session')->getVendor()->getResource()->getEntityType()->getDefaultAttributeSetId();
 			$entityGroup->setAttributeGroupName($data_new);
-			$entityGroup->setAttributeSetId($defaultId);
+			$entityGroup->setAttributeSetId($entityGroup->getAttributeSetId());
 			$entityGroup->save();
 
 			$groupId = $entityGroup->getId();

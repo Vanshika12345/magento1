@@ -72,7 +72,7 @@ class Ccc_Vendor_Model_Vendor extends Mage_Core_Model_Abstract
             . ' AND `attribute_group_id` =' . $groupId
             . ' AND `attribute_set_id` =' . $setId
         ;
-
+        
         $results = $readConnection->fetchRow($query);
 
         if ($results) {

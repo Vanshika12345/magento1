@@ -22,9 +22,8 @@ class Ccc_Vendor_Block_Product_Edit_Tabs extends Ccc_Vendor_Block_Widget_Tabs {
 			->addFieldToFilter('is_visible', ['eq' => 1]);
 		// ->addFieldToFilter(['vendor_id', 'vendor_id'], [['eq' => ''], ['eq' => Mage::helper('vendor')->_getSession()->getId()]]);
 
-		// echo "<pre>";
-		// PRINT_R($productAttributes->getData());
-		// die;
+		
+
 
 		if (!$this->getProduct()->getId()) {
 			foreach ($productAttributes as $attribute) {
@@ -37,6 +36,7 @@ class Ccc_Vendor_Block_Product_Edit_Tabs extends Ccc_Vendor_Block_Widget_Tabs {
 
 		$attributeSetId = $this->getProduct()->getResource()->getEntityType()->getDefaultAttributeSetId();
 
+
 		$groupCollection = Mage::getResourceModel('eav/entity_attribute_group_collection')
 			->setAttributeSetFilter($attributeSetId)
 			->setSortOrder()
@@ -47,12 +47,11 @@ class Ccc_Vendor_Block_Product_Edit_Tabs extends Ccc_Vendor_Block_Widget_Tabs {
 		foreach ($groupCollection as $group) {
 			if ($defaultGroupId == 0 || $group->getIsDefault()) {
 				$defaultGroupId = $group->getId();
-
 			}
 			$attributes = [];
 			foreach ($productAttributes as $attribute) {
+				
 				if ($this->getProduct()->checkInGroup($attribute->getId(), $attributeSetId, $group->getId())) {
-					echo 1;
 					$attributes[] = $attribute;
 				}
 			}
@@ -60,7 +59,7 @@ class Ccc_Vendor_Block_Product_Edit_Tabs extends Ccc_Vendor_Block_Widget_Tabs {
 			if (!$attributes) {
 				continue;
 			}
-			Mage::log($attributes, null, 'attribute.log', true);
+			//Mage::log($attributes, null, 'attribute.log', true);
 			$active = $defaultGroupId == $group->getId();
 
 			$block = $this->getLayout()->createBlock('vendor/product_edit_tab_attributes')
