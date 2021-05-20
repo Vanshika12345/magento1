@@ -25,14 +25,14 @@ class Ccc_Vendor_Block_Adminhtml_Vendor_Grid extends Mage_Adminhtml_Block_Widget
     {
         $store = $this->_getStore();
 
-        $collection = Mage::getModel('vendor/vendor')->getCollection()
-            ->addAttributeToSelect('firstname')
+        $collection = Mage::getModel('vendor/vendor')->getCollection();
+            /*->addAttributeToSelect('firstname')
             ->addAttributeToSelect('lastname')
             ->addAttributeToSelect('email')
-            ->addAttributeToSelect('phoneNo');
-
+            ->addAttributeToSelect('phoneNo');*/
+          
         $adminStore = Mage_Core_Model_App::ADMIN_STORE_ID;
-        $collection->joinAttribute(
+        /*$collection->joinAttribute(
             'firstname',
             'vendor/firstname',
             'entity_id',
@@ -41,7 +41,7 @@ class Ccc_Vendor_Block_Adminhtml_Vendor_Grid extends Mage_Adminhtml_Block_Widget
             $adminStore
         );
 
-        $collection->joinAttribute(
+      $collection->joinAttribute(
             'lastname',
             'vendor/lastname',
             'entity_id',
@@ -56,24 +56,26 @@ class Ccc_Vendor_Block_Adminhtml_Vendor_Grid extends Mage_Adminhtml_Block_Widget
             null,
             'inner',
             $adminStore
-        );
-        $collection->joinAttribute(
+        );*/
+        /*$collection->joinAttribute(
             'phoneNo',
             'vendor/phoneNo',
             'entity_id',
             null,
             'inner',
             $adminStore
-        );
+        );*/
 
-        $collection->joinAttribute(
+        /*$collection->joinAttribute(
             'id',
             'vendor/entity_id',
             'entity_id',
             null,
             'inner',
             $adminStore
-        );
+        );*/
+        print_r($collection->getData());
+        die();   
         $this->setCollection($collection);
         parent::_prepareCollection();
         return $this;
@@ -108,12 +110,12 @@ class Ccc_Vendor_Block_Adminhtml_Vendor_Grid extends Mage_Adminhtml_Block_Widget
                 'index'  => 'email',
             ));
 
-        $this->addColumn('phoneNo',
+        /*$this->addColumn('phoneNo',
             array(
                 'header' => Mage::helper('vendor')->__('Phone Number'),
                 'width'  => '50px',
                 'index'  => 'phoneNo',
-            ));
+            ));*/
 
         $this->addColumn('action',
             array(

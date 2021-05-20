@@ -29,13 +29,13 @@
                 <tr>
                     <td class="label"><label for="frontend_label">Attribute Name <span class="required">*</span></label></td>
                     <td class="value">
-                        <input id="frontend_label" name="frontend_label[]" value="<?php echo $attribute->getFrontendLabel()?>" title="Attribute Name" class="validate-code-event validate-code validate-length maximum-length-30 input-text required-entry" type="text"/>             
+                        <input id="frontend_label" name="frontend_label[]" value="<?php echo $attribute->getFrontendLabel()?>" title="Attribute Name" class="validate-code-event validate-code validate-length maximum-length-30 input-text required-entry" type="text" <?php if($attribute->getId()):?> disabled <?php endif;?>/>             
                     </td>
                 </tr>
                 <tr>
                     <td class="label"><label for="frontend_input">Catalog Input Type for Store Owner</label></td>
                     <td class="value">
-                        <select id="frontend_input" name="frontend_input" title="Catalog Input Type for Store Owner" class=" select">
+                        <select id="frontend_input" name="frontend_input" title="Catalog Input Type for Store Owner" class=" select" <?php if($attribute->getId()):?> disabled <?php endif;?>>
                             <?php foreach($inputTypes as $input):?>
                                 <option value="<?php echo $input['value']?>" <?php if($input['value'] == $attribute->getFrontendInput()):?>selected <?php endif;?>><?php echo $input['label']?></option>
                             <!-- <option value="text">TextField</option>
