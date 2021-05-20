@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<modules>
+		<Ccc_MyPaymentMethod>
+			<version>0.0.1</version>
+		</Ccc_MyPaymentMethod>
+	</modules>
+
+	<global>
+		<models>
+			<mypaymentmethod>
+				<class>Ccc_MyPaymentMethod_Model</class>
+			</mypaymentmethod>
+		</models>
+		<helpers>
+			<mypaymentmethod>
+				<class>Ccc_MyPaymentMethod_Helper</class>
+			</mypaymentmethod>
+		</helpers>
+		<blocks>
+			<mypaymentmethod>
+				<class>Ccc_MyPaymentMethod_Block</class>
+			</mypaymentmethod>
+		</blocks>
+	</global>
+
+	<default>
+		<payment>
+			<mypaymentmethod>
+				<model>mypaymentmethod/standard</model>
+				<active>1</active>
+				<order_status>pending</order_status>
+				<title>COD</title>
+				<payment_action>sale</payment_action>
+				<submit_url>https://www.google.com/</submit_url>
+				<merchant_id>Insert merchant id</merchant_id>
+				<allowspecific>0</allowspecific>
+				<sort_order>1</sort_order>
+			</mypaymentmethod>
+		</payment>
+	</default>
+
+	<frontend>
+		<routers>
+			<mypaymentmethod>
+				<use>standard</use>
+				<args>
+					<module>Ccc_MyPaymentMethod</module>
+					<frontName>mypaymentmethod</frontName>
+				</args>
+			</mypaymentmethod>
+		</routers>
+	</frontend>
+</config>
