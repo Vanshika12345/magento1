@@ -19,11 +19,8 @@ class Ccc_Vendor_Block_Product_Edit_Tabs extends Ccc_Vendor_Block_Widget_Tabs {
 
 		$productAttributes = Mage::getResourceModel('eav/entity_attribute_collection')
 			->setEntityTypeFilter(Mage::getModel('eav/entity')->setType('vendor_product')->getTypeId())
-			->addFieldToFilter('is_visible', ['eq' => 1]);
-		// ->addFieldToFilter(['vendor_id', 'vendor_id'], [['eq' => ''], ['eq' => Mage::helper('vendor')->_getSession()->getId()]]);
-
-		
-
+			->addFieldToFilter('is_visible', ['eq' => 1])
+			->addFieldToFilter(['vendor_id', 'vendor_id'], [['null' => true], ['eq' => Mage::helper('vendor')->_getSession()->getId()]]);
 
 		if (!$this->getProduct()->getId()) {
 			foreach ($productAttributes as $attribute) {

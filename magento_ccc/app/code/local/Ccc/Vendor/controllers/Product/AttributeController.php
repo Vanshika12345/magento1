@@ -221,12 +221,10 @@ class Ccc_Vendor_Product_AttributeController extends Mage_Core_Controller_Front_
 				$data['apply_to'] = array();
 			}
 
-			//same attribute name should not be saved
-			//filter
 			$data = $this->_filterPostData($data);
 			$model->setVendorId($vendorId);
 			$model->setAttributeSetId(Mage::getResourceModel('vendor/product')->getEntityType()->getDefaultAttributeSetId());
-			$model->setAttributeCode(str_replace(" ", '_', strtolower($data['frontend_label'][0])));
+			$model->setAttributeCode($vendorId.'_'.str_replace(" ", '_', strtolower($data['frontend_label'][0])));
 			$model->addData($data);
 			if (!$id) {
 				$model->setEntityTypeId($this->_entityTypeId);
