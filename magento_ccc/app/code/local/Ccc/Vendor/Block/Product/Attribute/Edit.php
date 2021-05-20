@@ -160,6 +160,11 @@ class Ccc_Vendor_Block_Product_Attribute_Edit extends Mage_Core_Block_Template {
 		}
 		return $stores;
 	}
+
+	public function getBackUrl()
+	{
+		return $this->getUrl('*/*/');
+	}
 }
 
 ?>
