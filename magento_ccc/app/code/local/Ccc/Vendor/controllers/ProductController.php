@@ -109,11 +109,7 @@ class Ccc_Vendor_ProductController extends Mage_Core_Controller_Front_Action {
 				$model->setVendorStatus('edit');
 				
 			}
-			echo "<pre>";
-			print_r($model);
-			die();
-			//print_r($model->save());
-			//$model->save();
+			$model->save();
 			Mage::helper('vendor')->_getSession()->addSuccess($this->__('Vendor Product Save Successfully'));
 
 		} catch (Exception $e) {
