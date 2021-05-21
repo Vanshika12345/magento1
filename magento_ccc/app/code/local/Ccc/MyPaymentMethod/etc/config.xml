@@ -12,6 +12,11 @@
 				<class>Ccc_MyPaymentMethod_Model</class>
 			</mypaymentmethod>
 		</models>
+		<helpers>
+			<mypaymentmethod>
+				<class>Ccc_MyPaymentMethod_Helper</class>
+			</mypaymentmethod>
+		</helpers>
 	</global>
 
 	<default>
