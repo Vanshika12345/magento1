@@ -17,11 +17,6 @@
 				<class>Ccc_MyShippingMethod_Helper</class>
 			</ccc_shipping>
 		</helpers>
-		<blocks>
-			<ccc_shipping>
-				<class>Ccc_MyShippingMethod_Block</class>
-			</ccc_shipping>
-		</blocks>
 	</global>
 	<default>
 		<carriers>
