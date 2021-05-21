@@ -190,6 +190,7 @@ class Ccc_Vendor_Product_AttributeController extends Mage_Core_Controller_Front_
 				$data['attribute_code'] = $model->getAttributeCode();
 				$data['is_user_defined'] = $model->getIsUserDefined();
 				$data['frontend_input'] = $model->getFrontendInput();
+				$data['frontend_label'] = $model->getFrontendLabel();
 			} else {
 				/**
 				 * @todo add to helper and specify all relations for properties
