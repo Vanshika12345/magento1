@@ -35,11 +35,11 @@ $productData = $this->getProduct();
 	<?php elseif($attribute->frontend_input == 'multiselect'): ?>
 		<div>
 			<label><?= $attribute->frontend_label ?></label>
-			<<?= $attribute->frontend_input ?> id="<?= $attribute->attribute_code ?>" name="<?= $attribute->attribute_code ?>">
+			<select id="<?= $attribute->attribute_code ?>" name="<?= $attribute->attribute_code ?>" multiple>
 				<?php foreach ($options as $option): ?>
 					<option value=">?= $option['value'] ?>"><?= $option['label'] ?></option>
 				<?php endforeach ?>
-			</<?= $attribute->frontend_input ?>>
+			</select>
 		</div>
 
 	<?php elseif($attribute->frontend_input == 'price'): ?>
