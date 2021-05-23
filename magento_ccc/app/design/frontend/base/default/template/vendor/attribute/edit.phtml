@@ -1,0 +1,527 @@
+<?php $groups = $this->getCollection();  ?>
+<?php $inputTypes = Mage::getModel('eav/adminhtml_system_config_source_inputtype')->toOptionArray(); ?>
+<?php $yesno = Mage::getModel('adminhtml/system_config_source_yesno')->toOptionArray(); ?>
+<?php $attribute = $this->getAttribute(); 
+// print_r($attribute->getId()); die(); ?> 
+<?php $validations = Mage::helper('eav')->getFrontendClasses($this->getAttributeObject()->getEntityType()->getEntityTypeCode()) ?>
+<form action="<?php echo $this->getSaveUrl(); ?>" method="post">
+<div class="entry-edit-head">
+<h4 class="icon-head head-edit-form fieldset-legend">Attribute Properties</h4>
+<div class="form-buttons"></div>
+</div>
+    <div class="fieldset " id="base_fieldset">
+    <div class="hor-scroll">
+        <?php echo $this->getBlockHtml('formkey'); ?>
+        <table cellspacing="0" class="form-list">
+            <tbody>
+                <tr>
+                    <td class="label"><label for="attribute_code">Group Name <span class="required">*</span></label></td>
+                    <td class="value">
+                        <select name="attribute_group_id">
+                            <option value="0">select</option>
+                            <?php foreach ($groups as $group): ?>
+                                <option value="<?php echo $group->getGroupId()?> "<?php if($group->getGroupId() == $this->getAttributeGroup()):?>selected <?php endif;?>><?php echo $group->getGroupName() ?></option> 
+                            <?php endforeach; ?>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label"><label for="attribute_code">Attribute Label <span class="required">*</span></label></td>
+                    <td class="value">
+                        <input id="frontend_label" name="frontend_label[]" value="<?php echo $attribute->getFrontendLabel()?>" title="Attribute Name" class="validate-code-event validate-code validate-length maximum-length-30 input-text required-entry" type="text" <?php if($attribute->getId()): ?> disabled <?php endif; ?>/>             
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label"><label for="frontend_input">Catalog Input Type for Store Owner</label></td>
+                    <td class="value">
+                        <select id="frontend_input" name="frontend_input" title="Catalog Input Type for Store Owner" class=" select" <?php if($attribute->getId()): ?> disabled <?php endif; ?>>
+                            <?php foreach ($inputTypes as $input): ?>
+                                <option  value="<?php echo $input['value'] ?>" <?php if($input['value'] == $attribute->getFrontendInput()): ?>selected <?php endif; ?>><?php echo $input['label'] ?></option> 
+                            <?php endforeach; ?>
+                        </select>           
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label"><label for="is_unique">Unique Value</label></td>
+                    <td class="value">
+                        <select id="is_unique" name="is_unique" title="Unique Value (not shared with other products)" class=" select">
+                            <?php foreach ($yesno as $input): ?>
+                                <option value="<?php echo $input['value'] ?>"><?php echo $input['label'] ?></option>
+                            <?php endforeach; ?>
+                        </select>                   
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label"><label for="is_required">Values Required</label></td>
+                    <td class="value">
+                        <select id="is_required" name="is_required" title="Values Required" class=" select">
+                            <?php foreach ($yesno as $input): ?>
+                                <option value="<?php echo $input['value'] ?>" <?php if($input['value'] == $attribute->getIsRequired()): ?>selected <?php endif; ?>><?php echo $input['label'] ?></option> 
+                            <?php endforeach; ?>
+                        </select>            
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label"><label for="frontend_class">Input Validation for Store Owner</label></td>
+                    <td class="value">
+                        <select id="frontend_class" name="frontend_class" title="Input Validation for Store Owner" class=" select">
+                            <?php foreach ($validations as $validate): ?>
+                                <option value="<?php echo $validate['value'] ?>" <?php if($validate['value'] == $attribute->getFrontendClass()): ?>selected <?php endif; ?>><?php echo $validate['label'] ?></option>
+                            <?php endforeach; ?>
+                        </select>           
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    
+    </div>
+</div><br></br>
+
+<div class="entity-edit" id="matage-options-panel">
+    <div class="entry-edit-head">
+        <h4 class="icon-head head-edit-form fieldset-legend">Manage Options (values of your attribute)</h4>
+    </div>
+    <div class="box">
+        <div class="hor-scroll">
+            <table class="dynamic-grid" cellspacing="0"  cellpadding="0">
+                <tr id="attribute-options-table">
+                    <th>Admin</th>
+                    <th>Position</th>
+                    <th class="nobr a-center">Is Default</th>
+                    <th>
+                        <button  id="add_new_option_button" title="Add Option" type="button" class="scalable add" onclick="" style=""><span><span><span>Add Option</span></span></span></button>                        
+                    </th>
+                </tr>
+                <tr class="no-display template" id="row-template">
+                    <td><input name="option[value][{{id}}][0]" value="{{store0}}" class="input-text required-option" type="text" /></td>
+                    <td><input name="option[value][{{id}}][1]" value="{{store1}}" class="input-text" type="text" /></td>
+                    <td class="a-center"><input class="input-text" type="text" name="option[order][{{id}}]" value="{{sort_order}}" /></td>
+                    <td><input class="input-radio" type="radio" name="default[]" value="{{id}}" /></td>
+                    <td class="a-left">
+                        <input type="hidden" class="delete-flag" name="option[delete][{{id}}]" value="" />
+                        <button  id="id_3cf4571f3f9dfbdfefab07efb31adc28" title="Delete" type="button" class="scalable delete delete-option" onclick="" style=""><span><span><span>Delete</span></span></span></button>   </td>
+                </tr>
+            </table>
+        </div>
+        <input type="hidden" id="option-count-check" value="" />
+    </div>
+</div>
+
+<div class="buttons-set">
+    <p class="back-link"><a href="<?php echo $this->escapeUrl($this->getBackUrl()) ?>"><small>&laquo; </small><?php echo $this->__('Back') ?></a></p>
+    <button type="submit" class="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Save')) ?>" name="save" id="save"><span><span><?php echo $this->__('Save') ?></span></span></button>
+</div>
+</form>
+
+<script type="text/javascript">
+//<![CDATA[
+    var optionDefaultInputType = 'radio';
+
+    // IE removes quotes from element.innerHTML whenever it thinks they're not needed, which breaks html.
+    var templateText =
+        '<tr class="option-row">'+
+        '<td><input name="option[value][{{id}}][0]" value="{{store0}}" class="input-text input-small required-option" type="text" <?php if ($this->getReadOnly()):?> disabled="disabled"<?php endif;?>/><\/td>'+
+
+        '<td><input class="input-text input-small" type="text" name="option[order][{{id}}]" value="{{sort_order}}" <?php if ($this->getReadOnly()):?> disabled="disabled"<?php endif;?>/><\/td>'+
+        '<td class="a-center"><input class="input-radio" type="{{intype}}" name="default[]" value="{{id}}" {{checked}} <?php if ($this->getReadOnly()):?> disabled="disabled"<?php endif;?>/><\/td>'+
+        '<td class="a-left" id="delete_button_container_{{id}}">'+
+        '<input type="hidden" class="delete-flag" name="option[delete][{{id}}]" value="" />'+
+        <?php if (!$this->getReadOnly()):?>
+            '<?php echo Mage::helper('core')->jsQuoteEscape($this->getDeleteButtonHtml()) ?>'+
+        <?php endif;?>
+        '<\/td>'+
+        '<\/tr>';
+
+var attributeOption = {
+table : $('attribute-options-table'),
+templateSyntax : /(^|.|\r|\n)({{(\w+)}})/,
+templateText : templateText,
+itemCount : 0,
+totalItems : 0,
+isReadOnly: <?php echo (int)$this->getReadOnly(); ?>,
+add : function(data) {
+this.template = new Template(this.templateText, this.templateSyntax);
+var isNewOption = false;
+if(!data.id){
+data = {};
+data.id = 'option_'+this.itemCount;
+isNewOption = true;
+}
+if (!data.intype)
+data.intype = optionDefaultInputType;
+Element.insert(this.table, {after: this.template.evaluate(data)});
+if (isNewOption && !this.isReadOnly) {
+this.enableNewOptionDeleteButton(data.id);
+}
+this.bindRemoveButtons();
+this.itemCount++;
+this.totalItems++;
+this.updateItemsCountField();
+},
+remove : function(event){
+var element = $(Event.findElement(event, 'tr')); // !!! Button already
+// have table parent in safari
+// Safari workaround
+element.ancestors().each(function(parentItem){
+if (parentItem.hasClassName('option-row')) {
+element = parentItem;
+throw $break;
+} else if (parentItem.hasClassName('box')) {
+throw $break;
+}
+});
+
+
+if(element){
+var elementFlags = element.getElementsByClassName('delete-flag');
+if(elementFlags[0]){
+elementFlags[0].value=1;
+}
+
+element.addClassName('no-display');
+element.addClassName('template');
+element.hide();
+this.totalItems--;
+this.updateItemsCountField();
+}
+},
+updateItemsCountField: function() {
+if (this.totalItems > 0) {
+$('option-count-check').value = '1';
+} else {
+$('option-count-check').value = '';
+}
+},
+enableNewOptionDeleteButton: function(id) {
+$$('#delete_button_container_' + id + ' button').each(function(button) {
+button.enable();
+button.removeClassName('disabled');
+});
+},
+bindRemoveButtons : function(){
+var buttons = $$('.delete-option');
+for(var i=0;i<buttons.length;i++){
+if(!$(buttons[i]).binded){
+$(buttons[i]).binded = true;
+Event.observe(buttons[i], 'click', this.remove.bind(this));
+}
+}
+}
+
+}
+if($('row-template')){
+$('row-template').remove();
+}
+attributeOption.bindRemoveButtons();
+
+if($('add_new_option_button')){
+Event.observe('add_new_option_button', 'click', attributeOption.add.bind(attributeOption));
+}
+Validation.addAllThese([
+['required-option', '<?php echo Mage::helper('core')->jsQuoteEscape(Mage::helper('catalog')->__('Failed')) ?>', function(v) {
+return !Validation.get('IsEmpty').test(v);
+}]]);
+Validation.addAllThese([
+['required-options-count', '<?php echo Mage::helper('core')->jsQuoteEscape(Mage::helper('catalog')->__('Options is required')) ?>', function(v) {
+return !Validation.get('IsEmpty').test(v);
+}]]);
+<?php foreach ($this->getOptionValues() as $_value): ?>
+attributeOption.add(<?php echo $_value->toJson() ?>);
+<?php endforeach; ?>
+//]]>
+</script>
+
+<script type="text/javascript">
+//<![CDATA[
+function saveAndContinueEdit(){
+disableElements('save');
+var activeTab = product_attribute_tabsJsTabs.activeTab.id;
+if (editForm.submit($('edit_form').action+'back/edit/tab/' + activeTab) == false) {
+enableElements('save');
+}
+varienGlobalEvents.attachEventHandler('formValidateAjaxComplete', function (){
+enableElements('save');
+});
+}
+
+function saveAttribute(){
+// disableElements('save');
+if (editForm.submit() == false){
+// enableElements('save');
+}
+varienGlobalEvents.attachEventHandler('formValidateAjaxComplete', function (){
+// enableElements('save');
+});
+}
+
+function toggleApplyVisibility(select) {
+if ($(select).value == 1) {
+$(select).next('select').removeClassName('no-display');
+$(select).next('select').removeClassName('ignore-validate');
+
+} else {
+$(select).next('select').addClassName('no-display');
+$(select).next('select').addClassName('ignore-validate');
+var options = $(select).next('select').options;
+for( var i=0; i < options.length; i++) {
+options[i].selected = false;
+}
+}
+}
+
+function checkOptionsPanelVisibility(){
+if($('matage-options-panel')){
+var panel = $('matage-options-panel');
+if($('frontend_input') && ($('frontend_input').value=='select' || $('frontend_input').value=='multiselect')){
+panel.show();
+}
+else {
+panel.hide();
+}
+}
+}
+
+function bindAttributeInputType()
+{
+checkOptionsPanelVisibility();
+switchDefaultValueField();
+checkIsConfigurableVisibility();
+if($('frontend_input') && ($('frontend_input').value=='select' || $('frontend_input').value=='multiselect' || $('frontend_input').value=='price')){
+if($('is_filterable') && !$('is_filterable').getAttribute('readonly')){
+$('is_filterable').disabled = false;
+}
+if($('is_filterable_in_search') && !$('is_filterable_in_search').getAttribute('readonly')){
+$('is_filterable_in_search').disabled = false;
+}
+if($('backend_type') && $('backend_type').options){
+for(var i=0;i<$('backend_type').options.length;i++){
+if($('backend_type').options[i].value=='int') $('backend_type').selectedIndex = i;
+}
+}
+}
+else {
+if($('is_filterable')){
+$('is_filterable').selectedIndex=0;
+$('is_filterable').disabled = true;
+}
+if($('is_filterable_in_search')){
+$('is_filterable_in_search').disabled = true;
+}
+}
+
+if ($('frontend_input') && ($('frontend_input').value=='multiselect'
+|| $('frontend_input').value=='gallery'
+|| $('frontend_input').value=='textarea')) {
+if ($('used_for_sort_by')) {
+$('used_for_sort_by').disabled = true;
+}
+}
+else {
+if ($('used_for_sort_by') && !$('used_for_sort_by').getAttribute('readonly')) {
+$('used_for_sort_by').disabled = false;
+}
+}
+
+setRowVisibility('is_wysiwyg_enabled', false);
+setRowVisibility('is_html_allowed_on_front', false);
+
+switch ($('frontend_input').value) {
+case 'textarea':
+setRowVisibility('is_wysiwyg_enabled', true);
+
+$('frontend_class').value = '';
+$('frontend_class').disabled = true;
+break;
+case 'text':
+setRowVisibility('is_html_allowed_on_front', true);
+
+
+if (!$('frontend_class').getAttribute('readonly')) {
+$('frontend_class').disabled = false;
+}
+break;
+case 'select':
+case 'multiselect':
+setRowVisibility('is_html_allowed_on_front', true);
+
+break;
+default:
+$('frontend_class').value = '';
+$('frontend_class').disabled = true;
+}
+
+switchIsFilterable();
+}
+
+function switchIsFilterable()
+{
+if ($('is_filterable')) {
+if ($('is_filterable').selectedIndex == 0) {
+$('position').disabled = true;
+} else {
+if (!$('position').getAttribute('readonly')){
+$('position').disabled = false;
+}
+}
+}
+}
+
+function disableApplyToValue(value)
+{
+var applyToSelect = $('apply_to');
+for (i=0;i<applyToSelect.options.length;i++) {
+if (value == applyToSelect.options[i].value) {
+applyToSelect.options[i].disabled = true;
+applyToSelect.options[i].selected = false;
+}
+}
+}
+
+function switchDefaultValueField()
+{
+if (!$('frontend_input')) {
+return;
+}
+
+var currentValue = $('frontend_input').value;
+
+
+var scopeVisibility = true;
+
+switch (currentValue) {
+case 'select':
+optionDefaultInputType = 'radio';
+break;
+
+case 'multiselect':
+optionDefaultInputType = 'checkbox';
+break;
+
+default:
+break;
+}
+
+switch (currentValue) {
+case 'media_image':
+// $('front_fieldset').previous().hide();
+// $('front_fieldset').hide();
+
+setRowVisibility('is_required', false);
+setRowVisibility('is_unique', false);
+setRowVisibility('frontend_class', false);
+break;
+
+<?php foreach (Mage::helper('catalog')->getAttributeHiddenFields() as $type=>$fields): ?>
+case '<?php echo $type; ?>':
+<?php foreach ($fields as $one): ?>
+<?php if ($one == '_front_fieldset'): ?>
+// $('front_fieldset').previous().hide();
+// $('front_fieldset').hide();
+<?php elseif ($one == '_default_value'): ?>
+defaultValueTextVisibility =
+defaultValueTextareaVisibility =
+defaultValueDateVisibility =
+defaultValueYesnoVisibility = false;
+<?php elseif ($one == '_scope'): ?>
+scopeVisibility = false;
+<?php else: ?>
+setRowVisibility('<?php echo $one; ?>', false);
+<?php endif; ?>
+<?php endforeach; ?>
+break;
+<?php endforeach; ?>
+
+default:
+// $('front_fieldset').previous().show();
+// $('front_fieldset').show();
+setRowVisibility('is_required', true);
+setRowVisibility('is_unique', true);
+setRowVisibility('frontend_class', true);
+setRowVisibility('is_configurable', true);
+break;
+}
+
+
+setRowVisibility('is_global', scopeVisibility);
+
+var elems = document.getElementsByName('default[]');
+for (var i = 0; i < elems.length; i++) {
+elems[i].type = optionDefaultInputType;
+}
+}
+
+function setRowVisibility(id, isVisible)
+{
+if ($(id)) {
+var td = $(id).parentNode;
+var tr = $(td.parentNode);
+
+if (isVisible) {
+tr.show();
+} else {
+tr.blur();
+tr.hide();
+}
+}
+}
+
+function checkIsConfigurableVisibility()
+{
+if (!$('is_configurable') || !$('is_global') || !$('frontend_input')) return;
+if ($F('is_global')==1 && $F('frontend_input')=='select') {
+setRowVisibility('is_configurable', true);
+} else {
+setRowVisibility('is_configurable', false);
+}
+}
+
+function deleteAttribute()
+{
+var deleteConfirm = confirm('Are you sure you want to do this?');
+if(deleteConfirm === false)
+{
+return;
+}
+else
+{
+var url = '<?=$this->getUrl('vendor/product_attribute/delete',['attribute_id'=> $this->getRequest()->getParam('attribute_id')]);?>';
+window.location = url;
+
+}
+}
+
+function updateRequriedOptions()
+{
+if ($F('frontend_input')=='select' && $F('is_required')==1) {
+$('option-count-check').addClassName('required-options-count');
+} else {
+$('option-count-check').removeClassName('required-options-count');
+}
+}
+
+if($('frontend_input')){
+Event.observe($('frontend_input'), 'change', updateRequriedOptions);
+Event.observe($('frontend_input'), 'change', bindAttributeInputType);
+}
+
+if ($('is_filterable')) {
+Event.observe($('is_filterable'), 'change', switchIsFilterable);
+}
+
+if ($('is_required')) {
+Event.observe($('is_required'), 'change', updateRequriedOptions);
+}
+bindAttributeInputType();
+//]]>
+
+function deleteAttribute() {
+    confirm = confirm('Are you sure want to delete attribute ?');
+    if(confirm == false)
+    {
+        return;
+    }
+    window.location = "<?= $this->getUrl('*/*/delete', ['attribute_id' => $this->getRequest()->getParam('attribute_id')]) ?>";
+
+}
+
+</script>

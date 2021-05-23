@@ -1,0 +1,18 @@
+<form id="edit_form" method="POST" action="<?php echo $this->getUrl('*/*/save', ['id' => $this->getRequest()->getParam('id')]) ?>">
+	<button type="submit" class="button">Save</button>
+	<?php if($this->getRequest()->getParam('id')): ?>
+		<button type="button" class="button" onclick="deleteProduct()">Delete</button>
+	<?php endif; ?>
+	<p class="back-link"><a href="<?php echo $this->escapeUrl($this->getBackUrl()) ?>"><small>&laquo; </small><?php echo $this->__('Back') ?></a></p>
+</form>
+
+<script type="text/javascript">
+	function deleteProduct(){
+		confirm = confirm('Are You Sure You Want To Delete Product');
+		if(confirm == true){
+			window.location = '<?php echo $this->getUrl('*/*/delete', ['id' => $this->getRequest()->getParam('id')]) ?>';
+		}else{
+			return;
+		}
+	}
+</script>
