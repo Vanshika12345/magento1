@@ -1,7 +1,7 @@
 <?php
 
-$this->startSetup();
-$this->run( 
+$installer = $this;
+$installer->run( 
 	"DROP TABLE IF EXISTS `{$installer->getTable('vendor_int')}`;
     DROP TABLE IF EXISTS `{$installer->getTable('vendor_varchar')}`;
     DROP TABLE IF EXISTS `{$installer->getTable('vendor_datetime')}`;
@@ -24,6 +24,7 @@ $this->run(
     "
 	);
 
+$this->startSetup();
 $this->addEntityType(Ccc_Vendor_Model_Resource_Vendor::ENTITY, [
 	'entity_model' => 'vendor/vendor',
 	'attribute_model' => 'vendor/attribute',
