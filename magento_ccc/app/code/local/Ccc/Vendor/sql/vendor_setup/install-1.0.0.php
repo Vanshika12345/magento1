@@ -11,7 +11,16 @@ $this->run(
     DROP TABLE IF EXISTS `{$installer->getTable('vendor_eav_attribute')}`;
     DROP TABLE IF EXISTS `{$installer->getTable('vendor')}`;
     DELETE FROM `eav_entity_type` WHERE `entity_type_code` IN('vendor');
-    DELETE FROM `core_resource` WHERE `code` = 'vendor_setup';
+    DROP TABLE IF EXISTS `{$installer->getTable('vendor_product_entity_int')}`;
+    DROP TABLE IF EXISTS `{$installer->getTable('vendor_product_entity_varchar')}`;
+    DROP TABLE IF EXISTS `{$installer->getTable('vendor_product_entity_datetime')}`;
+    DROP TABLE IF EXISTS `{$installer->getTable('vendor_product_entity_decimal')}`;
+    DROP TABLE IF EXISTS `{$installer->getTable('vendor_product_entity_text')}`;
+     DROP TABLE IF EXISTS `{$installer->getTable('vendor_product_entity_gallery')}`;
+    DROP TABLE IF EXISTS `{$installer->getTable('vendor_product_eav_attribute')}`;
+    DROP TABLE IF EXISTS `{$installer->getTable('vendor_product_entity')}`;
+    DROP TABLE IF EXISTS `{$installer->getTable('vendor_product_group')}`;
+    DELETE FROM `eav_entity_type` WHERE `entity_type_code` IN('vendor_product');
     "
 	);
 
