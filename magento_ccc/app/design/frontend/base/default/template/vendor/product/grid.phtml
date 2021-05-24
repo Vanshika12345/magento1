@@ -1,0 +1,55 @@
+<?php $products = $this->getProducts();
+?>
+<div class="group-grid">
+    <?php echo $this->getMessagesBlock()->toHtml() ?>
+    <div class="col1- set">
+        <h2><b>Manage Products</b></h2>
+        <a class="button" href="<?php echo $this->getUrl('*/product/edit') ?>"><span>Add Product</span>    
+     		</a>
+    </div><br>
+    <table id="product-table" class="data-table table ">
+    <colgroup>
+        <col width="1">
+        <col>
+        <col width="1">
+        <col width="1">
+        <col>
+    </colgroup>
+    <thead>
+        <tr class="first last" align="center">
+            <th class="text-center">ID</th>
+            <th class="text-center">NAME</th>
+            <th class="text-center">SKU</th>
+            <th class="text-center">TYPE</th>
+            <th class="text-center">PRICE</th>
+            <th class="text-center">Admin Status</th>
+            <th class="text-center">STATUS</th>
+            <th>ACTION</th>
+        </tr>
+    </thead>
+    <tbody>        
+        <?php foreach ($products as $product): ?>
+            <tr align="center">
+                <td><?= $product->entity_id ?></td>
+                <td><?= $product->name ?></td>
+                <td><?= $product->sku ?></td>
+                <td><?= $product->type_id ?></td>
+                <td><?= $product->price ?></td>
+                <td><?= $product->admin_status ?></td>
+                <td><?= $product->vendor_status ?></td>
+                <td><a href="<?= $this->getUrl('*/*/edit', ['id' => $product->entity_id]) ?>">EDIT</a></td>
+            </tr>
+        <?php endforeach ?>
+    </tbody>
+</table>
+<?php echo $this->getPagerHtml() ?>
+</div>
+<script type="text/javascript">
+decorateTable('product-table')
+
+function redirectToEdit(row)
+{
+    window.location = row.title;
+}
+
+</script>
