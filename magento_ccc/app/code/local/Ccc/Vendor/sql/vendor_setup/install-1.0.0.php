@@ -1,7 +1,9 @@
 <?php
 
-$installer = $this;
-$installer->run( 
+
+
+$this->startSetup();
+$this->run( 
 	"DROP TABLE IF EXISTS `vendor_int`;
     DROP TABLE IF EXISTS `vendor_varchar`;
     DROP TABLE IF EXISTS `vendor_datetime`;
@@ -16,7 +18,7 @@ $installer->run(
     DROP TABLE IF EXISTS `vendor_product_entity_datetime`;
     DROP TABLE IF EXISTS `vendor_product_entity_decimal`;
     DROP TABLE IF EXISTS `vendor_product_entity_text`;
-     DROP TABLE IF EXISTS `vendor_product_entity_gallery`;
+    DROP TABLE IF EXISTS `vendor_product_entity_gallery`;
     DROP TABLE IF EXISTS `vendor_product_eav_attribute`;
     DROP TABLE IF EXISTS `vendor_product_entity`;
     DROP TABLE IF EXISTS `vendor_product_group`;
@@ -24,8 +26,6 @@ $installer->run(
      DELETE FROM `core_resource` WHERE `code` = 'vendor_setup';
     "
 	);
-
-$this->startSetup();
 $this->addEntityType(Ccc_Vendor_Model_Resource_Vendor::ENTITY, [
 	'entity_model' => 'vendor/vendor',
 	'attribute_model' => 'vendor/attribute',
