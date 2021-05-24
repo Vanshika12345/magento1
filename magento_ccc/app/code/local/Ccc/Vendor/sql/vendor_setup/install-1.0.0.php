@@ -21,6 +21,7 @@ $installer->run(
     DROP TABLE IF EXISTS `vendor_product_entity`;
     DROP TABLE IF EXISTS `vendor_product_group`;
     DELETE FROM `eav_entity_type` WHERE `entity_type_code` IN('vendor_product');
+     DELETE FROM `core_resource` WHERE `code` = 'vendor_setup';
     "
 	);
 
