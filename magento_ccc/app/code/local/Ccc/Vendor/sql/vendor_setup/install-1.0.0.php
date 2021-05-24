@@ -2,24 +2,24 @@
 
 $installer = $this;
 $installer->run( 
-	"DROP TABLE IF EXISTS `{$installer->getTable('vendor_int')}`;
-    DROP TABLE IF EXISTS `{$installer->getTable('vendor_varchar')}`;
-    DROP TABLE IF EXISTS `{$installer->getTable('vendor_datetime')}`;
-    DROP TABLE IF EXISTS `{$installer->getTable('vendor_decimal')}`;
-    DROP TABLE IF EXISTS `{$installer->getTable('vendor_text')}`;
-    DROP TABLE IF EXISTS `{$installer->getTable('vendor_char')}`;
-    DROP TABLE IF EXISTS `{$installer->getTable('vendor_eav_attribute')}`;
-    DROP TABLE IF EXISTS `{$installer->getTable('vendor')}`;
+	"DROP TABLE IF EXISTS `vendor_int`;
+    DROP TABLE IF EXISTS `vendor_varchar`;
+    DROP TABLE IF EXISTS `vendor_datetime`;
+    DROP TABLE IF EXISTS `vendor_decimal`;
+    DROP TABLE IF EXISTS `vendor_text`;
+    DROP TABLE IF EXISTS `vendor_char`;
+    DROP TABLE IF EXISTS `vendor_eav_attribute`;
+    DROP TABLE IF EXISTS `vendor`;
     DELETE FROM `eav_entity_type` WHERE `entity_type_code` IN('vendor');
-    DROP TABLE IF EXISTS `{$installer->getTable('vendor_product_entity_int')}`;
-    DROP TABLE IF EXISTS `{$installer->getTable('vendor_product_entity_varchar')}`;
-    DROP TABLE IF EXISTS `{$installer->getTable('vendor_product_entity_datetime')}`;
-    DROP TABLE IF EXISTS `{$installer->getTable('vendor_product_entity_decimal')}`;
-    DROP TABLE IF EXISTS `{$installer->getTable('vendor_product_entity_text')}`;
-     DROP TABLE IF EXISTS `{$installer->getTable('vendor_product_entity_gallery')}`;
-    DROP TABLE IF EXISTS `{$installer->getTable('vendor_product_eav_attribute')}`;
-    DROP TABLE IF EXISTS `{$installer->getTable('vendor_product_entity')}`;
-    DROP TABLE IF EXISTS `{$installer->getTable('vendor_product_group')}`;
+    DROP TABLE IF EXISTS `vendor_product_entity_int`;
+    DROP TABLE IF EXISTS `vendor_product_entity_varchar`;
+    DROP TABLE IF EXISTS `vendor_product_entity_datetime`;
+    DROP TABLE IF EXISTS `vendor_product_entity_decimal`;
+    DROP TABLE IF EXISTS `vendor_product_entity_text`;
+     DROP TABLE IF EXISTS `vendor_product_entity_gallery`;
+    DROP TABLE IF EXISTS `vendor_product_eav_attribute`;
+    DROP TABLE IF EXISTS `vendor_product_entity`;
+    DROP TABLE IF EXISTS `vendor_product_group`;
     DELETE FROM `eav_entity_type` WHERE `entity_type_code` IN('vendor_product');
     "
 	);
