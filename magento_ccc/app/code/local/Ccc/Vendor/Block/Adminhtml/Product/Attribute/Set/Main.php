@@ -104,7 +104,7 @@ class Ccc_Vendor_Block_Adminhtml_Product_Attribute_Set_Main extends Mage_Adminht
      * @return string
      */
     public function getMoveUrl() {
-        return $this->getUrl('*/vendor_product_set/save', array('id' => $this->_getSetId()));
+        return $this->getUrl('*/adminhtml_vendor_product_set/save', array('id' => $this->_getSetId()));
     }
 
     /**
@@ -113,7 +113,7 @@ class Ccc_Vendor_Block_Adminhtml_Product_Attribute_Set_Main extends Mage_Adminht
      * @return string
      */
     public function getGroupUrl() {
-        return $this->getUrl('*/vendor_product_group/save', array('id' => $this->_getSetId()));
+        return $this->getUrl('*/adminhtml_vendor_product_group/save', array('id' => $this->_getSetId()));
     }
 
     /**
