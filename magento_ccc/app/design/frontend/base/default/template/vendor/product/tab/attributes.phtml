@@ -55,7 +55,7 @@ $productId = $this->getRequest()->getParam('id');
 	<?php elseif($attribute->frontend_input == 'price'): ?>
 		<div>
 			<label><?= $attribute->frontend_label ?></label>
-			<input type="number" id="<?= $attribute->attribute_code ?>" value="<?= $productData->getData($attribute->attribute_code) ?>" name="<?= $attribute->attribute_code ?>" min="0" required> <em style="color:red">Required Fields</em>
+			<input type="number" id="<?= $attribute->attribute_code ?>" value="<?= $productData->getData($attribute->attribute_code) ?>" name="<?= $attribute->attribute_code ?>" min="0"> <em style="color:red">Required Fields</em>
 		</div>
 
 	<?php endif ?>
