@@ -1,6 +1,7 @@
 <?php 
 $attributes = $this->getAttributes();
 $productData = $this->getProduct(); 
+$productId = $this->getRequest()->getParam('id');
 ?>
 
 <?php foreach ($attributes as $attribute): ?>
@@ -8,9 +9,18 @@ $productData = $this->getProduct();
 		<?php $options = $attribute->getSource()->getAllOptions();?>
 	<?php endif ?>
 	<?php if ($attribute->frontend_input == 'text' && $attribute->frontend_label): ?>
-		<div>
+		<div> 
 			<label><?= $attribute->frontend_label ?></label>
+			<?php if($attribute->attribute_code == 'group_price'):?>
+				<input type="number" id="<?= $attribute->attribute_code ?>" value="<?= $productData->getData($attribute->attribute_code) ?>" name="<?= $attribute->attribute_code ?>" min="0">
+			<?php elseif($attribute->attribute_code == 'name'):?>
+				<input type="number" id="<?= $attribute->attribute_code ?>" value="<?= $productData->getData($attribute->attribute_code) ?>" name="<?= $attribute->attribute_code ?>" required> <em style="color:red">Required Fields</em>
+			<?php elseif($productId && $attribute->attribute_code == "sku"):?>
+			<input id="<?= $attribute->attribute_code ?>" type="<?= $attribute->frontend_input ?>" name="<?= $attribute->attribute_code ?>" value="<?= $productData->getData($attribute->attribute_code) ?>" required disabled> <em style="color:red">Required Fields</em>
+			<?php else:?>
 			<input id="<?= $attribute->attribute_code ?>" type="<?= $attribute->frontend_input ?>" name="<?= $attribute->attribute_code ?>" value="<?= $productData->getData($attribute->attribute_code) ?>">
+		<?php endif;?>
+		
 		</div>
 	<?php elseif($attribute->frontend_input == 'textarea'): ?>
 		<div>
@@ -45,20 +55,10 @@ $productData = $this->getProduct();
 	<?php elseif($attribute->frontend_input == 'price'): ?>
 		<div>
 			<label><?= $attribute->frontend_label ?></label>
-			<input type="text" id="<?= $attribute->attribute_code ?>" value="<?= $productData->getData($attribute->attribute_code) ?>" name="<?= $attribute->attribute_code ?>" oninput="myFunc()">
+			<input type="number" id="<?= $attribute->attribute_code ?>" value="<?= $productData->getData($attribute->attribute_code) ?>" name="<?= $attribute->attribute_code ?>" min="0" required> <em style="color:red">Required Fields</em>
 		</div>
 
 	<?php endif ?>
 
 <?php endforeach ?>
-<script type="text/javascript">
-	function myFunc()
-	{
-	  var value = parseFloat(document.getElementById("price").value);
-	  if(value<0)
-	  {
-	   alert("Negative Value is not allowed");
-	   return false;
-	  }
-	}
-</script>
+<?php /*min="1" max="999999" maxlength="6" oninput="this.value=this.value.slice(0,this.maxLength||1/1);this.value=(this.value   < 1) ? (1/1) : this.value;"*/?>

@@ -82,13 +82,48 @@ class Ccc_Vendor_ProductController extends Mage_Core_Controller_Front_Action {
 
 			$id = $this->getRequest()->getParam('id');
 			$data = $this->getRequest()->getPost();
-			// echo "<pre>";
-			// print_r($data);
-			// die();
 			$model = Mage::getModel('vendor/product');
-			// echo "<pre>";
-			// print_r($model);
-			// die();
+			$sku = $data['sku'];
+            $price = $data['price'];
+           	$cost = $data['cost'];
+           	$spprice = $data['special_price'];
+            if(!$data['name']){
+            	Mage::getSingleton('core/session')->addError("Please enter the product name");
+                    	$this->_redirect('*/*/edit');
+                        return;
+            }
+            if(!$sku){
+            	Mage::getSingleton('core/session')->addError("Please enter the sku");
+                    	$this->_redirect('*/*/edit');
+                        return;
+            }
+            
+            if($price < 0){
+            	Mage::getSingleton('core/session')->addError("Please enter the price in positive integers");
+                    	$this->_redirect('*/*/edit');
+                        return;
+            }
+            if(!$price){
+            	Mage::getSingleton('core/session')->addError("Please enter the Price");
+                    	$this->_redirect('*/*/edit');
+                        return;
+            }
+			$isSku = Mage::getModel('vendor/product')->getResource()->getSkuById($sku);
+                
+                if(!$id){
+                    
+                    if($isSku){
+                    	Mage::getSingleton('core/session')->addError("Product SKU already exists! (SKU must be unique.)");
+                    	$this->_redirect('*/*/edit');
+                        return;
+              
+                    }
+                    $existsCatalogProduct = Mage::getModel('catalog/product')->getResource()->getIdBySku($sku);
+                    if ($existsCatalogProduct) {
+                    	Mage::getSingleton('core/session')->addError("Product SKU already exists!");
+                        return;
+                    }
+                }
 
 			foreach ($data as $key) {
 				if (is_array($key)) {
@@ -113,14 +148,8 @@ class Ccc_Vendor_ProductController extends Mage_Core_Controller_Front_Action {
 				$model->setVendorStatus('edit');
 				$model->setAdminStatus('pending');
 			}
-			// echo "<pre>";
-			// print_r($model);
-			// die();
-
+			
 			$model->save();
-			// echo "<pre>";
-			// print_r($model);
-			// die();
 			Mage::helper('vendor')->_getSession($this->__('Vendor Product Save Successfully'));
 		} catch (Exception $e) {
 			print_r($e->getMessage());

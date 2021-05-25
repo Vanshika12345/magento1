@@ -37,28 +37,29 @@ class Ccc_Vendor_Block_Adminhtml_Product_Grid extends Mage_Adminhtml_Block_Widge
 		$collection->joinAttribute('price', 'vendor_product/price', 'entity_id', null, 'inner');
 		$collection->joinAttribute('admin_status', 'vendor_product/admin_status', 'entity_id', null, 'left');
 		$collection->joinAttribute('vendor_status', 'vendor_product/vendor_status', 'entity_id', null, 'inner');
+		$collection->joinAttribute('product_id', 'vendor_product/product_id', 'entity_id', null, 'inner');
 
 		$this->setCollection($collection);
 		return parent::_prepareCollection();
 	}
 
-	protected function _prepareMassaction() {
-		$this->setMassactionIdField('entity_id');
-		$this->getMassactionBlock()->setFormFieldName('order_ids');
-		$this->getMassactionBlock()->setUseSelectAll(false);
+	// protected function _prepareMassaction() {
+	// 	$this->setMassactionIdField('entity_id');
+	// 	$this->getMassactionBlock()->setFormFieldName('order_ids');
+	// 	$this->getMassactionBlock()->setUseSelectAll(false);
 
-		$this->getMassactionBlock()->addItem('approve', array(
-			'label' => Mage::helper('vendor')->__('Approve'),
-			'url' => $this->getUrl('*/vendor_product/massApprove'),
-		));
+	// 	$this->getMassactionBlock()->addItem('approve', array(
+	// 		'label' => Mage::helper('vendor')->__('Approve'),
+	// 		'url' => $this->getUrl('vendor_product/massApprove'),
+	// 	));
 
-		$this->getMassactionBlock()->addItem('reject', array(
-			'label' => Mage::helper('vendor')->__('Reject'),
-			'url' => $this->getUrl('*/vendor_product/massReject'),
-		));
+	// 	$this->getMassactionBlock()->addItem('reject', array(
+	// 		'label' => Mage::helper('vendor')->__('Reject'),
+	// 		'url' => $this->getUrl('*/vendor_product/massReject'),
+	// 	));
 
-		return $this;
-	}
+	// 	return $this;
+	// }
 
 	protected function _prepareColumns() {
 		$this->addColumn('entity_id',
@@ -77,13 +78,13 @@ class Ccc_Vendor_Block_Adminhtml_Product_Grid extends Mage_Adminhtml_Block_Widge
 			]
 		);
 
-		$this->addColumn('name',
+		/*$this->addColumn('name',
 			[
 				'header' => 'Name',
 				'index' => 'name',
 			]
 		);
-
+		*/
 		$this->addColumn('sku',
 			[
 				'header' => 'SKU',
@@ -98,6 +99,12 @@ class Ccc_Vendor_Block_Adminhtml_Product_Grid extends Mage_Adminhtml_Block_Widge
 			]
 		);*/
 
+		$this->addColumn('product_id',
+			[
+				'header' => 'Catalog ProductId',
+				'index' => 'product_id',
+			]
+		);
 		$this->addColumn('price',
 			[
 				'header' => 'Price',
