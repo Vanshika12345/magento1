@@ -50,8 +50,9 @@ class Ccc_Vendor_GroupController extends Mage_Core_Controller_Front_Action {
 				$vendorGroupNameFilter = $vendorGroupFilter->addFieldToFilter('group_name', $groupData['name'])->getData();
 
 				if ($vendorGroupNameFilter) {
-					Mage::getSingleton('Adminhtml/Session')->addError('A group with the same name already Existed');
-					//$this->_redirect('vendor/group/add');
+					Mage::getSingleton('core/session')->addError('A group with the same name already Existed');
+					$this->_redirect('vendor/group/add');
+					return;
 				}
 
 				$attributeSetId = $vendorProduct->getResource()->getEntityType()->getDefaultAttributeSetId();
@@ -71,12 +72,12 @@ class Ccc_Vendor_GroupController extends Mage_Core_Controller_Front_Action {
 						->setGroupName($groupData['name']);
 
 					$vendorModelGroup->save();
-					Mage::getSingleton('Adminhtml/Session')->addSuccess('Vendor Group Add Successfully');
+					Mage::getSingleton('core/session')->addSuccess('Vendor Group Add Successfully');
 				}
 
 				$this->_redirect('vendor/group/grid');
 			} catch (Exception $e) {
-				Mage::getSingleton('Adminhtml/Session')->addError('Error while saving the group');
+				Mage::getSingleton('core/session')->addError('Error while saving the group');
 			}
 
 		}
