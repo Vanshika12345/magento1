@@ -45,9 +45,20 @@ $productData = $this->getProduct();
 	<?php elseif($attribute->frontend_input == 'price'): ?>
 		<div>
 			<label><?= $attribute->frontend_label ?></label>
-			<input type="text" id="<?= $attribute->attribute_code ?>" value="<?= $productData->getData($attribute->attribute_code) ?>" name="<?= $attribute->attribute_code ?>">
+			<input type="text" id="<?= $attribute->attribute_code ?>" value="<?= $productData->getData($attribute->attribute_code) ?>" name="<?= $attribute->attribute_code ?>" oninput="myFunc()">
 		</div>
 
 	<?php endif ?>
 
 <?php endforeach ?>
+<script type="text/javascript">
+	function myFunc()
+	{
+	  var value = parseFloat(document.getElementById("price").value);
+	  if(value<0)
+	  {
+	   alert("Negative Value is not allowed");
+	   return false;
+	  }
+	}
+</script>

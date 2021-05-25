@@ -91,12 +91,12 @@ class Ccc_Vendor_Block_Adminhtml_Product_Grid extends Mage_Adminhtml_Block_Widge
 			]
 		);
 
-		$this->addColumn('type_id',
+		/*$this->addColumn('type_id',
 			[
 				'header' => 'Type',
 				'index' => 'type_id',
 			]
-		);
+		);*/
 
 		$this->addColumn('price',
 			[
