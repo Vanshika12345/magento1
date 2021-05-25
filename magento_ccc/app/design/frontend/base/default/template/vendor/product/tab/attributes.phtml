@@ -16,7 +16,7 @@ $productId = $this->getRequest()->getParam('id');
 			<?php elseif($attribute->attribute_code == 'name'):?>
 				<input type="text" id="<?= $attribute->attribute_code ?>" value="<?= $productData->getData($attribute->attribute_code) ?>" name="<?= $attribute->attribute_code ?>" required> <em style="color:red">Required Fields</em>
 			<?php elseif($productId && $attribute->attribute_code == "sku"):?>
-			<input id="<?= $attribute->attribute_code ?>" type="<?= $attribute->frontend_input ?>" name="<?= $attribute->attribute_code ?>" value="<?= $productData->getData($attribute->attribute_code) ?>" required disabled> <em style="color:red" required>Required Fields</em>
+			<input id="<?= $attribute->attribute_code ?>" type="<?= $attribute->frontend_input ?>" name="<?= $attribute->attribute_code ?>" value="<?= $productData->getData($attribute->attribute_code) ?>" required disabled> <em style="color:red">Required Fields</em>
 			<?php else:?>
 			<input id="<?= $attribute->attribute_code ?>" type="<?= $attribute->frontend_input ?>" name="<?= $attribute->attribute_code ?>" value="<?= $productData->getData($attribute->attribute_code) ?>">
 		<?php endif;?>
