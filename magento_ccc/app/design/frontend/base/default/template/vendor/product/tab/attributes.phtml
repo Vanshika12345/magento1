@@ -14,9 +14,9 @@ $productId = $this->getRequest()->getParam('id');
 			<?php if($attribute->attribute_code == 'group_price'):?>
 				<input type="number" id="<?= $attribute->attribute_code ?>" value="<?= $productData->getData($attribute->attribute_code) ?>" name="<?= $attribute->attribute_code ?>" min="0">
 			<?php elseif($attribute->attribute_code == 'name'):?>
-				<input type="text" id="<?= $attribute->attribute_code ?>" value="<?= $productData->getData($attribute->attribute_code) ?>" name="<?= $attribute->attribute_code ?>" required> <em style="color:red">Required Fields</em>
+				<input type="text" id="<?= $attribute->attribute_code ?>" value="<?= $productData->getData($attribute->attribute_code) ?>" name="<?= $attribute->attribute_code ?>" required><em style="color:red">Required Fields</em>
 			<?php elseif($productId && $attribute->attribute_code == "sku"):?>
-			<input id="<?= $attribute->attribute_code ?>" type="<?= $attribute->frontend_input ?>" name="<?= $attribute->attribute_code ?>" value="<?= $productData->getData($attribute->attribute_code) ?>" required disabled> <em style="color:red">Required Fields</em>
+			<input id="<?= $attribute->attribute_code ?>" type="<?= $attribute->frontend_input ?>" name="<?= $attribute->attribute_code ?>" value="<?= $productData->getData($attribute->attribute_code) ?>" disabled><em style="color:red">Required Fields</em>
 			<?php else:?>
 			<input id="<?= $attribute->attribute_code ?>" type="<?= $attribute->frontend_input ?>" name="<?= $attribute->attribute_code ?>" value="<?= $productData->getData($attribute->attribute_code) ?>">
 		<?php endif;?>
@@ -55,10 +55,13 @@ $productId = $this->getRequest()->getParam('id');
 	<?php elseif($attribute->frontend_input == 'price'): ?>
 		<div>
 			<label><?= $attribute->frontend_label ?></label>
-			<input type="number" id="<?= $attribute->attribute_code ?>" value="<?= $productData->getData($attribute->attribute_code) ?>" name="<?= $attribute->attribute_code ?>" min="0"> <em style="color:red">Required Fields</em>
+			<?php if($attribute->attribute_code == 'price'): ?>
+				<input type="number" id="<?= $attribute->attribute_code ?>" value="<?= $productData->getData($attribute->attribute_code) ?>" name="<?= $attribute->attribute_code ?>" min="0"><em style="color:red">Required Fields</em>
+			<?php else: ?>	
+			<input type="number" id="<?= $attribute->attribute_code ?>" value="<?= $productData->getData($attribute->attribute_code) ?>" name="<?= $attribute->attribute_code ?>" min="0">
+		<?php endif; ?>
 		</div>
 
 	<?php endif ?>
 
 <?php endforeach ?>
-<?php /*min="1" max="999999" maxlength="6" oninput="this.value=this.value.slice(0,this.maxLength||1/1);this.value=(this.value   < 1) ? (1/1) : this.value;"*/?>

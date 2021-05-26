@@ -1,5 +1,5 @@
 <form id="edit_form" method="POST" action="<?php echo $this->getUrl('*/*/save', ['id' => $this->getRequest()->getParam('id')]) ?>">
-	<button type="submit" class="button">Save</button>
+	<button type="submit" class="button" onclick="return checkResult()">Save</button>
 	<?php if($this->getRequest()->getParam('id')): ?>
 		<button type="button" class="button" onclick="deleteProduct()">Delete</button>
 	<?php endif; ?>
@@ -14,5 +14,30 @@
 		}else{
 			return;
 		}
+	}
+
+	function checkResult() {
+		var price = document.getElementById('price').value;
+		var sku = document.getElementById('sku').value;
+		var name = document.getElementById('name').value;
+		
+		
+		if (name.length == '') {
+			alert("Name field is required");
+			return false;
+		}
+		else if (sku.length == '') {
+			alert("Sku is required field");
+			return false;
+		}
+		else if(price < 0){
+			alert("Value must be greater than 0");
+			return false;
+		}
+		else if(price.length == 0){
+			alert("Price field is required in Price tab");
+			return false;
+		}
+		
 	}
 </script>

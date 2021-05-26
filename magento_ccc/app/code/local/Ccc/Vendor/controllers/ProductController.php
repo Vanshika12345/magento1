@@ -83,44 +83,13 @@ class Ccc_Vendor_ProductController extends Mage_Core_Controller_Front_Action {
 			$id = $this->getRequest()->getParam('id');
 			$data = $this->getRequest()->getPost();
 			$model = Mage::getModel('vendor/product');
-			$sku = $data['sku'];
-            $price = $data['price'];
-           	$cost = $data['cost'];
-           	$spprice = $data['special_price'];
-            if(!$data['name']){
-            	Mage::getSingleton('core/session')->addError("Please enter the product name");
-                    	$this->_redirect('*/*/edit');
-                        return;
-            }
-            if(!$sku){
-            	Mage::getSingleton('core/session')->addError("Please enter the sku");
-                    	$this->_redirect('*/*/edit');
-                        return;
-            }
-            
-            if($price < 0){
-            	Mage::getSingleton('core/session')->addError("Please enter the price in positive integers");
-                    	$this->_redirect('*/*/edit');
-                        return;
-            }
-            if(!$price){
-            	Mage::getSingleton('core/session')->addError("Please enter the Price");
-                    	$this->_redirect('*/*/edit');
-                        return;
-            }
-			$isSku = Mage::getModel('vendor/product')->getResource()->getSkuById($sku);
-                
+			$sku = $data['sku'];     
                 if(!$id){
                     
-                    if($isSku){
-                    	Mage::getSingleton('core/session')->addError("Product SKU already exists! (SKU must be unique.)");
-                    	$this->_redirect('*/*/edit');
-                        return;
-              
-                    }
                     $existsCatalogProduct = Mage::getModel('catalog/product')->getResource()->getIdBySku($sku);
                     if ($existsCatalogProduct) {
                     	Mage::getSingleton('core/session')->addError("Product SKU already exists!");
+                    	$this->_redirect('*/*/grid');
                         return;
                     }
                 }
@@ -152,9 +121,7 @@ class Ccc_Vendor_ProductController extends Mage_Core_Controller_Front_Action {
 			$model->save();
 			Mage::helper('vendor')->_getSession($this->__('Vendor Product Save Successfully'));
 		} catch (Exception $e) {
-			print_r($e->getMessage());
-			die();
-			Mage::getModel('vendor/session')->addError($e->getMessage());
+			Mage::getModel('core/session')->addError($e->getMessage());
 		}
 		$this->_redirect('*/*/grid');
 	}
