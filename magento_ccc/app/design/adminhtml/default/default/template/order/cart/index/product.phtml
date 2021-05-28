@@ -1,0 +1,82 @@
+<?php $cart = $this->getCart();?>
+<?php $items = $cart->getCartItems();?>
+<div class="entry-edit">
+    <div class="entry-edit-head">
+        <h4 class="icon-head head-cart">Items Ordered</h4>
+        <div class="form-buttons">
+        <button id="submit_order_top_button" type="button" onclick="object.resetParam().setParams(jQuery('#cartForm').serializeArray()).setUrl('<?php echo $this->getUrl('*/*/changeQuantity',['id' => $this->getRequest()->getParam('id')])?>').load()" class="scalable save">
+                    <span><span><span>Update Items</span></span></span>
+                </button>
+            <button class="scalable add" onclick="showProductGrid()"type="button"><span>Add Products</span></button>
+        </div>
+    </div>
+    
+<div class="grid" id="order-items_grid">
+    <table cellspacing="0" class="data order-tables">
+        <colgroup><col>
+        <col width="100">
+        <col width="40">
+        <col width="100">
+        <col width="80">
+        <col width="100">
+        <col width="80">
+        </colgroup> 
+        <thead>
+                    <tr class="headings">
+                        <th class="no-link">Product Name</th>
+                        <th class="no-link">SKU</th>
+                        <th class="no-link">Product Id</th>
+                        <th class="no-link">Quantity</th>
+                        <th class="no-link">Base Price</th>
+                        <th class="no-link">Price</th>
+                        <th class="no-link last">Action</th>
+                    </tr>
+                </thead>
+        <tbody>
+            <?php if ($items) : ?>
+                <?php foreach ($items->getData() as $key => $value) : ?>
+                    <tr class="even">
+                        <td><?php echo $this->getProductName($value['product_id']); ?></td>
+                            <td><?php echo $this->getProductSKU($value['product_id']); ?></td>
+                            <td><?php echo $value['product_id']; ?></td>
+                            <td><input type="number" name="quantity[<?php echo $value['entity_id']; ?>]" value="<?php echo $value['quantity']; ?>"></td>
+                            <td><?php echo $value['base_price']; ?></td>
+                            <td><?php echo $value['price']; ?></td>
+                            <td>
+                                <button type="button" onclick="object.resetParam().setParams(jQuery('#cartForm').serializeArray()).setUrl('<?php echo $this->getUrl('*/*/delete',['itemId' => $value['entity_id'],'id' => $this->getRequest()->getParam('id')])?>').load()"class="scalable delete">
+                                        <span><span><span>Delete</span></span></span>
+                                </button>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php else : ?>
+                    <tr class="even">
+                        <td class="empty-text a-center" colspan="100">No ordered items</td>
+                    </tr>
+                <?php endif; ?>
+                </tbody>
+    </table>
+</div>
+</div>
+<div id="productGridContent">
+    	<?php echo $this->getLayout()->createBlock('order/adminhtml_order_cart_index_product_grid')->setCart($this->getCart())->toHtml() ?>
+</div>
+<script type="text/javascript">
+		document.getElementById('productGridContent').style.display = 'none';
+	function showProductGrid() {
+		document.getElementById('productGridContent').style.display = 'block';
+	}	
+
+	function addProduct() {
+         object.resetParam().setParams(jQuery('#cartForm').serializeArray()).setUrl('<?php  echo $this->getUrl('*/*/addToCart',['id' => $this->getRequest()->getParam('id')])?>').load();
+        document.getElementById('productGridContent').style.display = 'none';
+
+	}
+
+    /*function changeAction(value) {
+        form = document.getElementById('cartForm');
+        form.action = value;
+        form.submit();
+    }*/
+</script>
+

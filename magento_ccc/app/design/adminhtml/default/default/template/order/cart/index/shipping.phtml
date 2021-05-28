@@ -1,0 +1,19 @@
+<?php $cart = $this->getCart(); ?>
+<?php $shippingDetails = $this->getCart()->getShipmentMethod(); ?>
+<?php// print_r($shippingDetails); die();?>
+<div class="entry-edit">
+    <div class="entry-edit-head">
+    	<h4>Shipping Methods</h4></div>
+    	<fieldset class="bold">
+        	<?php if ($cart): ?>
+				<?php foreach ($shippingDetails as $shippingCode => $shippingTitle): ?>
+					<input type="radio" name="shippingMethod" value="[<?= $shippingCode ?>]"> <?= $shippingTitle[0] ?> (<?= $shippingDetail->description ?> $<?= $shippingTitle[1] ?>) <br>
+				<?php endforeach; ?>
+				<div class="form-group mt-3">
+					<button class="btn btn-success" type="button" onclick="object.resetParam().setParams(jQuery('#cartForm').serializeArray()).setUrl('<?php echo $this->getUrl('*/*/updateShipping',['id' => $this->getRequest()->getParam('id')]) ?>').load()">Update</button>
+				</div>
+			<?php endif; ?>
+        <!-- </span> -->
+    </fieldset>
+</div>
+

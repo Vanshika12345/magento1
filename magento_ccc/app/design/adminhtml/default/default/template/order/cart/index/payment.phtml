@@ -1,0 +1,18 @@
+<?php 
+	$cart = $this->getCart();
+	$paymentDetails = $cart->getPaymentMethod(); 
+?>
+<div class="entry-edit">
+    <div class="entry-edit-head">
+    	<h4>Payment Methods</h4></div>
+    	<fieldset class="bold">
+		<?php if ($cart): ?>
+			<?php foreach ($paymentDetails as $paymentDetail): ?>
+				<input type="radio" name="paymentMethod" value="<?= $paymentDetail['value'] ?>"> <?= $paymentDetail['label'] ?> <br> 
+			<?php endforeach ?>
+			<div class="form-group mt-3">
+				<button class="btn btn-success" type="button" onclick="object.resetParam().setParams(jQuery('#cartForm').serializeArray()).setUrl('<?php echo  $this->getUrl('*/*/updatePayment',['id' => $this->getRequest()->getParam('id')]) ?>').load()">Update</button>
+			</div>
+		<?php endif ?>
+	</fieldset>
+</div>

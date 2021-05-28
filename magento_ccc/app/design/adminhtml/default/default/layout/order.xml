@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<layout>
+    <order_adminhtml_order_index>
+        <reference name="content">
+            <block type="order/adminhtml_order" name="order_grid"/>
+        </reference>
+    </order_adminhtml_order_index>
+    <order_adminhtml_order_customergrid>
+        <reference name="content">
+            <block type="order/adminhtml_order_cart_customer" name="customer_grid"/>
+        </reference>
+    </order_adminhtml_order_customergrid>
+    <order_adminhtml_order_cart_index>
+        <reference name="head">
+            <action method="addJs"><script>ccc/jquery-3.6.0.js</script></action> 
+            <action method="addJs"><script>ccc/after_jquery.js</script></action>
+            <action method="addJs"><script>ccc/mage.js</script></action>    
+        </reference>
+        <reference name="content">
+        <block type="order/adminhtml_order_cart_index" name="cart" template="order/cart/index.phtml">
+            <block type="order/adminhtml_order_cart_index_account" name="account" template="order/cart/index/account.phtml"/>
+            <block type="order/adminhtml_order_cart_index_product" name="product" template="order/cart/index/product.phtml"/>
+            <block type="order/adminhtml_order_cart_index_address" name="address" template="order/cart/index/address.phtml"/>
+            <block type="order/adminhtml_order_cart_index_payment" name="paymentmethod" template="order/cart/index/payment.phtml"/>
+            <block type="order/adminhtml_order_cart_index_shipping" name="shippingmethod" template="order/cart/index/shipping.phtml"/>
+            <block type="order/adminhtml_order_cart_index_cartDetails" name="cartDetails" template="order/cart/index/cartDetails.phtml"/>
+        </block>
+    </reference>
+    </order_adminhtml_order_cart_index>
+</layout>

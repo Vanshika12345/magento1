@@ -1,0 +1,56 @@
+<form  id="cartForm">
+	<?php echo $this->getBlockHtml('formkey'); ?>
+	<div class="page-create-order">
+		<table width="100%" align="center">
+			<tr>
+				<td>
+					<div id="productcontent">
+						<?php echo $this->getChild('product')->setCart($this->getCart())->toHtml() ?>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div id="accountContent">
+						<?php echo $this->getChild('account')->setCart($this->getCart())->toHtml(); ?>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div id="addressContent">
+						<?php echo $this->getChild('address')->setCart($this->getCart())->toHtml() ?>
+					</div>
+				</td>
+			</tr>
+
+			<tr>
+				<td>
+					<div id="cart-methods">
+			
+						<div id="cart-billing_method" class="box-right"><?php echo $this->getChild('paymentmethod')->setCart($this->getCart())->toHtml() ?>
+				     	</div>
+						<div id="cart-shipping_method" class="box-left payments"><?php echo $this->getChild('shippingmethod')->setCart($this->getCart())->toHtml() ?></div>
+			
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+		 			<div class="row mt-5">
+						<div id="cartDetails">
+							<?php echo $this->getChild('cartDetails')->setCart($this->getCart())->toHtml() ?>
+						</div>
+					</div>  
+				</td>
+			</tr>
+		</table>
+	</div>
+</form>
+<script type="text/javascript">
+	function customerData(){
+		
+		document.getElementById('productcontent').style.display = "inline-table ";
+		
+	}
+</script>

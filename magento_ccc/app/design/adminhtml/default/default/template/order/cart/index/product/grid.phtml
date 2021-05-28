@@ -1,0 +1,73 @@
+<?php $_items = $this->getProducts(); ?>
+
+<div class="entry-edit">
+<div class="entry-edit-head">
+<div style="float: right;"><button id="addSelectedProduct" title="Add Selected Product(s) to Order" type="button" class="scalable add" onclick="addProduct()" style=""><span><span><span>Add Selected Product(s) to Order</span></span></span></button></div>
+<h4 class="fieldset-legend head-catalog-product icon-head">Please Select Products to Add</h4>
+</div>
+<div class="fieldset">
+<div id="sales_order_create_search_grid">
+    <div class="grid">
+    <div class="hor-scroll">
+        <table cellspacing="0" class="data" id="sales_order_create_search_grid_table">
+             <colgroup><col width="60">
+            <col>
+            <col width="80">
+            <col width="100">
+            <col width="55">
+            <col width="1">
+            </colgroup>
+            <thead>
+                <tr class="headings">
+                        <th><span class="nobr"><a href="#" name="entity_id" title="asc" class="sort-arrow-desc"><span class="sort-title">ID</span></a></span></th>
+                        <th><span class="nobr"><a href="#" name="name" title="asc" class="not-sort"><span class="sort-title">Product Name</span></a></span></th>
+                        <th><span class="nobr"><a href="#" name="sku" title="asc" class="not-sort"><span class="sort-title">SKU</span></a></span></th>
+                        <th><span class="nobr"><a href="#" name="price" title="asc" class="not-sort"><span class="sort-title">Price</span></a></span></th>
+                        <th class="a-center no-link"><span class="nobr">Select</span></th>
+                        <th class=" no-link last"><span class="nobr">Qty To Add</span></th>
+                    </tr>
+                    <tr class="filter">
+                        <th><div class="field-100"><input type="text" name="entity_id" id="sales_order_create_search_grid_filter_entity_id" value="" class="input-text no-changes"></div></th>
+                        <th><div class="field-100"><input type="text" name="name" id="sales_order_create_search_grid_filter_name" value="" class="input-text no-changes"></div></th>
+                        <th><div class="field-100"><input type="text" name="sku" id="sales_order_create_search_grid_filter_sku" value="" class="input-text no-changes"></div></th>
+                        <th><div class="range"><div class="range-line"><span class="label">From:</span> <input type="text" name="price[from]" id="sales_order_create_search_grid_filter_price_from" value="" class="input-text no-changes"></div><div class="range-line"><span class="label">To : </span><input type="text" name="price[to]" id="sales_order_create_search_grid_filter_price_to" value="" class="input-text no-changes"></div></div></th>
+                        <th class="a-center no-link"><span class="head-massaction"><select name="in_products" id="sales_order_create_search_grid_filter_in_products" class="no-changes"><option value="">Any</option><option value="1">Yes</option><option value="0">No</option></select></span></th>
+                        <th class=" no-link last">&nbsp;</th>
+                    </tr>
+        </thead>
+
+<tbody>
+        <?php $i=0 ?>
+        <?php foreach ($_items as $_item):$i++ ?>
+        <tr>
+            <td>
+                <?php echo $_item['entity_id'];?>
+            </td>
+            <td>
+                <?php echo $_item['name'];?>
+            </td>
+             <td>
+                <?php echo $_item['sku'];?>
+            </td>
+            <td>
+                <?php echo $_item['price']?>
+            </td>
+            <td>
+                <input type="checkbox" name="addItem[<?= $_item['entity_id'] ?>]" value="" onchange="">
+            </td>
+        </tr>
+    <?php endforeach; ?>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<script type="text/javascript">
+    /*function sendProduct() {
+        object.resetParam().setUrl('<?php //echo $this->getUrl('*/*/addToCart')?>').setParams(jQuery('#cartForm').serializeArray()).load();    
+    }*/
+    
+</script>

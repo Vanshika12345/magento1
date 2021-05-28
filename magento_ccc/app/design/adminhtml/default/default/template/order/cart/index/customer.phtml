@@ -1,0 +1,22 @@
+<?php $customers = $this->getCustomers()->getData(); ?>
+
+<div class="entry-edit">
+    <div class="entry-edit-head"><h4>Select a Customer</h4></div>
+    <fieldset class="a-center bold">
+        <span class="nowrap" style="font-size:18px;">
+    		<select class="form-control"  name="customer_id" onchange="selectCustomer()">
+				<option>Select Customer</option>
+					<?php foreach ($customers as $key => $customer): ?>
+						<option value="<?= $customer['entity_id'] ?>"><?= $customer['name'] ?></option>
+					<?php endforeach; ?>
+			</select>
+        </span>
+    </fieldset>
+</div>
+	
+<script type="text/javascript">
+	function selectCustomer() {
+		document.getElementById('select').style.display = "inline-table";
+		object.resetParam().setUrl('<?php echo $this->getUrl('*/*/changeCustomer') ?>').setParams(jQuery('#cartForm').serializeArray()).setMethod('POST').load();
+	}
+</script>

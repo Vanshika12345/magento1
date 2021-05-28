@@ -1,0 +1,97 @@
+<?php $_items = $this->getProducts() ?>
+<?php if (empty($_items)): ?>
+    <div class="grid" id="order-items_grid">
+        <table cellspacing="0" class="data order-tables">
+            <col />
+            <col width="100" />
+            <col width="40" />
+            <col width="100" />
+            <col width="80" />
+            <col width="100" />
+            <col width="80" />
+            <thead>
+                <tr class="headings">
+                    <th class="no-link"><?php echo $this->helper('sales')->__('Product') ?></th>
+                    <th class="no-link"><?php echo $this->helper('sales')->__('Price') ?></th>
+                    <th class="no-link"><?php echo $this->helper('sales')->__('Qty') ?></th>
+                    <th class="no-link"><?php echo $this->helper('sales')->__('Subtotal') ?></th>
+                    <th class="no-link"><?php echo $this->helper('sales')->__('Discount') ?></th>
+                    <th class="no-link"><?php echo $this->helper('sales')->__('Row Subtotal') ?></th>
+
+                    <th class="no-link last"><?php echo $this->helper('sales')->__('Action') ?></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="even">
+                    <td class="empty-text a-center" colspan="100"><?php echo $this->helper('sales')->__('No ordered items') ?></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+<?php else: ?>
+<div>
+    <?php if(count($_items)>10): ?>
+    <p class="a-right">
+        <?php //echo $this->getButtonHtml($this->helper('sales')->__('Update Items and Qty\'s'),'order.itemsUpdate()'); ?>
+    </p>
+    <?php endif; ?>
+    <div class="grid" id="order-items_grid">
+        <div class="form-buttons">
+            <button type="button" class="btn btn-success a-right" onclick="addProduct()">Add Select Products</button>
+        </div>
+        <table cellspacing="0" class="data order-tables">
+            <col />
+            <col width="100" />
+            <col width="100" />
+            <col width="40"  />
+            <col width="100" />
+            <col width="80"  />
+            <col width="100" />
+            <col width="80" />
+            <thead>
+                <tr class="headings">
+                    <th class="no-link" colspan="2"><?php echo $this->helper('sales')->__('Product') ?></th>
+                    <th class="no-link"><?php echo $this->helper('sales')->__('Price') ?></th>
+                    <th class="no-link"><?php echo $this->helper('sales')->__('Qty') ?></th>
+                    <th class="no-link"><?php echo $this->helper('sales')->__('Subtotal') ?></th>
+                    <th class="no-link"><?php echo $this->helper('sales')->__('Discount') ?></th>
+                    <th class="no-link"><?php echo $this->helper('sales')->__('Row Subtotal') ?></th>
+
+                    <th class="no-link last"><?php echo $this->helper('sales')->__('Action') ?></th>
+                </tr>
+            </thead>
+                <?php $i=0 ?>
+                <?php foreach ($_items as $_item):$i++ ?>
+                <tbody class="<?php echo ($i%2)?'even':'odd' ?>">
+                    <tr>
+                        <td colspan="2">
+                            <?php echo $_item['name'];?>
+                        </td>
+                        <td>
+                            <?php echo $_item['price']?>
+                        </td>
+                        <td>
+                            <?php echo $_item['quantity']?>
+                        </td>
+                        <td>
+                            <?php echo $_item['price'] * $_item['quantity']?>
+                        </td>
+                        <td>
+                            <?php echo $_item['discount']?>
+                            
+                        </td>
+                        <td>
+                            <?php echo ($_item['price'] * $_item['quantity'])  - $_item['dicosunt']?>
+                        </td>
+                        <td>
+                            <input type="checkbox" name="addItem" onchange="">
+                        </td>
+                    </tr>
+                 <?php endforeach;?> 
+
+
+        </table>
+    </div>
+    
+</div>
+<?php endif; ?>
