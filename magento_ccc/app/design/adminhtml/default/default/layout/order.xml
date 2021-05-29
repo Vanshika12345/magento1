@@ -11,15 +11,16 @@
         </reference>
     </order_adminhtml_order_customergrid>
     <order_adminhtml_order_cart_index>
-        <reference name="head">
+        <!-- <reference name="head">
             <action method="addJs"><script>ccc/jquery-3.6.0.js</script></action> 
             <action method="addJs"><script>ccc/after_jquery.js</script></action>
             <action method="addJs"><script>ccc/mage.js</script></action>    
-        </reference>
+        </reference> -->
         <reference name="content">
         <block type="order/adminhtml_order_cart_index" name="cart" template="order/cart/index.phtml">
             <block type="order/adminhtml_order_cart_index_account" name="account" template="order/cart/index/account.phtml"/>
-            <block type="order/adminhtml_order_cart_index_product" name="product" template="order/cart/index/product.phtml"/>
+            <block type="order/adminhtml_order_cart_index_product" name="product" />
+            <block type="order/adminhtml_order_cart_index_items" name="items" template="order/cart/index/items.phtml"/>
             <block type="order/adminhtml_order_cart_index_address" name="address" template="order/cart/index/address.phtml"/>
             <block type="order/adminhtml_order_cart_index_payment" name="paymentmethod" template="order/cart/index/payment.phtml"/>
             <block type="order/adminhtml_order_cart_index_shipping" name="shippingmethod" template="order/cart/index/shipping.phtml"/>
@@ -27,4 +28,17 @@
         </block>
     </reference>
     </order_adminhtml_order_cart_index>
+
+     <order_adminhtml_order_view>
+        <reference name="content">
+        <block type="order/adminhtml_view" name="view">
+            <block type="order/adminhtml_customer" name="order_customer" />
+            <block type="order/adminhtml_products" name="order_product" />
+            <block type="order/adminhtml_address" name="order_address"/>
+            <!-- <block type="order/adminhtml_order_cart_index_payment" name="paymentmethod" template="order/payment.phtml"/>
+            <block type="order/adminhtml_order_cart_index_shipping" name="shippingmethod" template="order/shipping.phtml"/> -->
+            <block type="order/adminhtml_orderDetails" name="order_details" template="order/orderdetails.phtml"/>
+        </block>
+    </reference>
+    </order_adminhtml_order_view>
 </layout>

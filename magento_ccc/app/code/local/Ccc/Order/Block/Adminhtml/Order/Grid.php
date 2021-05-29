@@ -35,22 +35,14 @@ class Ccc_Order_Block_Adminhtml_Order_Grid extends Mage_Adminhtml_Block_Widget_G
             'index' => 'increment_id',
         ));
         
-        $this->addColumn('customer_id', array(
-            'header' => Mage::helper('sales')->__('Customer Id'),
-            'index' => 'customer_id',
+        $this->addColumn('first_name', array(
+            'header' => Mage::helper('sales')->__('Customer FirstName'),
+            'index' => 'first_name',
         ));
 
-        $this->addColumn('created_at', array(
-            'header' => Mage::helper('sales')->__('Purchased On'),
-            'index' => 'created_at',
-            'type' => 'datetime',
-            'width' => '100px',
-        ));
-
-
-        $this->addColumn('discount', array(
-            'header' => Mage::helper('sales')->__('Discount'),
-            'index' => 'discount',
+        $this->addColumn('last_name', array(
+            'header' => Mage::helper('sales')->__('Customer LastName'),
+            'index' => 'last_name',
         ));
 
         $this->addColumn('total', array(

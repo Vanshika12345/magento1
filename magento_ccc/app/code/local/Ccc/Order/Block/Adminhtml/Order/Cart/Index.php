@@ -16,6 +16,11 @@ class Ccc_Order_Block_Adminhtml_Order_Cart_Index extends Mage_Adminhtml_Block_Te
 	{
 		return $this->cart;	
 	}
+
+	public function getBackUrl()
+	{
+		return $this->getUrl('*/adminhtml_order/customerGrid');
+	}
 }
 
 ?>

@@ -1,18 +1,45 @@
-<?php 
-	$cart = $this->getCart();
-	$paymentDetails = $cart->getPaymentMethod(); 
-?>
-<div class="entry-edit">
-    <div class="entry-edit-head">
-    	<h4>Payment Methods</h4></div>
-    	<fieldset class="bold">
-		<?php if ($cart): ?>
-			<?php foreach ($paymentDetails as $paymentDetail): ?>
-				<input type="radio" name="paymentMethod" value="<?= $paymentDetail['value'] ?>"> <?= $paymentDetail['label'] ?> <br> 
-			<?php endforeach ?>
-			<div class="form-group mt-3">
-				<button class="btn btn-success" type="button" onclick="object.resetParam().setParams(jQuery('#cartForm').serializeArray()).setUrl('<?php echo  $this->getUrl('*/*/updatePayment',['id' => $this->getRequest()->getParam('id')]) ?>').load()">Update</button>
-			</div>
-		<?php endif ?>
-	</fieldset>
-</div>
+<?php $paymentMethod = $this->getPaymentMethod(); ?>
+<?php unset($paymentMethod['free']); ?>
+<div class="clear"></div>
+<div id="order-methods">
+    <div id="order-billing_method" class="box-right payments">
+        <div class="entry-edit">
+            <div class="entry-edit-head">
+                <div style="float: right;"></div>
+                <h4 class="fieldset-legend head-payment-method icon-head">Payment Method</h4>
+                <div class="form-buttons">
+                    <button id="submit_order_top_button" type="button" onclick="changeAction('<?php echo $this->getPaymentMethodUrl() ?>')" class="scalable save">
+                        <span><span><span>Update</span></span></span>
+                    </button>
+                </div>
+            </div>
+            <div class="fieldset">
+                <div id="order-billing_method_form">
+                    <dl class="payment-methods">
+                        <dt>
+                            <?php if ($paymentMethod) : ?>
+                                <?php foreach ($paymentMethod as $key => $value) : ?>
+                                	<input type="radio" id = "paymentMethod" name="payment" value="<?php echo $value->getId(); ?>" <?php if($value->getId() == $this->fetchPaymentMethod()){echo "checked";} ?>>
+                                    <?php echo $value->getTitle(); ?><br>
+                                <?php endforeach; ?>
+                            <?php else : ?>
+                                <label for="p_method_free">No Payment Available</label>
+                            <?php endif; ?>
+                        </dt>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+          /*function checkPayment() {
+            //var shipment = document.getElementById('paymentMethod');
+            if(document.getElementById('paymentMethod').checked == true){
+            return ;
+                //return false;
+            }else {
+                alert('Please select Shipment Method');
+                console.log(1);
+            }*/
+    //} 
+    </script>

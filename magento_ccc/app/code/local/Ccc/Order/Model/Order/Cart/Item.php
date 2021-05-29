@@ -17,7 +17,7 @@ class Ccc_Order_Model_Order_Cart_Item extends Mage_Core_Model_Abstract
 	}
 	public function getProduct()
 	{
-		if($this->product)
+		if(!$this->product)
 		{
 			return null;
 		}

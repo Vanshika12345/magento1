@@ -1,183 +1,193 @@
-<?php $shipping = $this->getCartShippingAddress(); ?>
-<?php $billing = $this->getCartBillingAddress(); ?>
-<?php if($billing):?>
-<?php $billing = $billing->getData();?>
-<?php endif;?>
-<?php if($shipping):?>
-<?php $shipping = $shipping->getData();?>
-<?php endif;?>
-<div id="order-addresses">
-<div id="order-billing_address" class="box-left">
-<div class="entry-edit">
-
-<div class="entry-edit-head">
-    <h4 class="icon-head fieldset-legend head-billing-address">Billing Address</h4>
-</div>
-<?php //if($billing->getData()):?>
-<fieldset class="np">
-    <div class="order-address" id="order-billing_address_fields">
-        <div class="content">
-            <div class="hor-scroll">
-                <table cellspacing="0" class="form-list">
-                    <tbody>
-
-                        <tr>
-                            <td class="label"><label for="order-billing_address_street0">Street Address
-                                    <span class="required">*</span></label></td>
-                            <td class="value">
-                                <div class="multi-input"><input id="order-billing_address_street0"
-                                        name="billing[street]"
-                                        value="<?php echo $billing['street']; ?>"
-                                        class=" input-text required-entry" type="text">
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="label"><label for="order-shipping_address_postcode">Zip/Postal Code
-                                    <span class="required">*</span></label></td>
-                            <td class="value">
-                                <input id="order-shipping_address_postcode"
-                                    name="shipping[postcode]"
-                                    value="<?php echo $billing['postcode']; ?>"
-                                    class=" required-entry input-text required-entry" type="text"
-                                    disabled="">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="label"><label for="order-billing_address_state">State</label></td>
-                            <td class="value">
-                                <input id="order-billing_address_state" name="billing[region]"
-                                    value="<?php echo $billing['region']; ?>"
-                                    class="input-text" type="text">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="label"><label for="order-billing_address_city">City <span
-                                        class="required">*</span></label></td>
-                            <td class="value">
-                                <input id="order-billing_address_city" name="billing[city]"
-                                    value="<?php echo $billing['city']; ?>"
-                                    class=" required-entry input-text required-entry" type="text">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="label"><label for="order-billing_address_country">Country<span
-                                        class="required">*</span></label>
-                            </td>
-                            <td class="value">
-                                <input id="order-billing_address_country"
-                                    name="billing[country_id]"
-                                    value="<?php echo $billing['country_id']; ?>"
-                                    class="required-entry input-text" type="text">
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+    <?php $billingAddress = $this->getCartBillingAddress()->getData(); ?>
+    <?php $shippingAddress = $this->getCartShippingAddress()->getData(); ?>
+    <?php //echo "<pre>"; print_r($billingAddress); die();?>
+    <div id="order-addresses">
+        <div id="order-billing_address" class="box-left">
+            <div class="entry-edit">
+                <div class="entry-edit-head">
+                    <h4 class="icon-head fieldset-legend head-billing-address">Billing Address</h4>
+                    <div class="form-buttons">
+                        <button id="submit_order_top_button" type="button" onclick="return validate('<?php echo $this->getSaveBillingUrl() ?>','b');" class="scalable save">
+                            <span><span><span>Update</span></span></span>
+                        </button>
+                    </div>
+                </div>
+                <fieldset class="np">
+                    <div id="order-shipping_address_choice" class="order-choose-address">&nbsp</div>
+                    <div class="order-address" id="order-billing_address_fields">
+                        <div class="content">
+                            <div class="hor-scroll">
+                                <table id="billing" cellspacing="0" class="form-list">
+                                    <tbody>
+                                        <tr>
+                                            <td class="label"><label for="first_name">First Name <span class="required">*</span></label></td>
+                                            <td class="value">
+                                                <input id="billing_first_name" name="billing[firstname]" value="<?php echo $this->getValue($billingAddress, 'firstname'); ?>" class="input-text required-entry" type="text" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="label"><label for="last_name">Last Name <span class="required">*</span></label></td>
+                                            <td class="value">
+                                                <input id="billing_last_name" name="billing[lastname]" value="<?php echo $this->getValue($billingAddress, 'lastname'); ?>" class="input-text required-entry" type="text" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="label"><label for="address">Street Address <span class="required">*</span></label></td>
+                                            <td class="value">
+                                                <input id="billing_address" name="billing[street]" value="<?php echo $this->getValue($billingAddress, 'street'); ?>" class="input-text required-entry" type="text" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="label"><label for="city">City <span class="required">*</span></label></td>
+                                            <td class="value">
+                                                <input id="billing_city" name="billing[city]" value="<?php echo $this->getValue($billingAddress, 'city'); ?>" class=" required-entry input-text required-entry" type="text" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="label"><label for="state">State/Province <span class="required">*</span></label></td>
+                                            <td class="value">
+                                                <input id="billing_state" name="billing[region]" value="<?php echo $this->getValue($billingAddress, 'region'); ?>" class="input-text" type="text" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="label"><label for="country">Country <span class="required">*</span></label></td>
+                                            <td class="value">
+                                            <select id="billing_country" name="billing[country_id]" class="required-entry required-entry select">
+                                                <?php foreach ($this->getCountryOptions() as $country) : ?>
+                                                    <option value="<?php echo $country['value'] ?>" <?php if ($country['value'] == $this->getValue($billingAddress, 'country_id')){ echo "selected";} ?>><?php echo $country['label'] ?></option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="label"><label for="zipcode">Zip/Postal Code <span class="required">*</span></label></td>
+                                            <td class="value">
+                                                <input id="billing_zipcode" name="billing[postcode]" value="<?php echo $this->getValue($billingAddress, 'postcode'); ?>" class=" required-entry input-text required-entry" type="text" />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="order-save-in-address-book">
+                            <input name="save_to_billing_address" type="checkbox" id="billingSaveToAddress" value="1" />
+                            <label for="saveToAddress">Save in address book</label>
+                        </div>
+                    </div>
+                </fieldset>
             </div>
         </div>
-        <div class="order-save-in-address-book">
-            <input name="billingAddressBook" type="checkbox"
-                id="order-billing_address_save_in_address_book">
-            <label for="order-billing_address_save_in_address_book">Save in address book</label>
-        </div>
-        <div class="form-group mt-3">
-    		<button class="btn btn-success" type="button" onclick="object.resetParam().setUrl('<?= $this->getUrl('*/*/updateAddress',['id' => $this->getRequest()->getParam('id'),'type' => 'billing']) ?>').setParams(jQuery('#cartForm').serializeArray()).load()">Update</button>
-		</div>
-    </div>
-<?php //endif; ?>
-</fieldset>
-</div>
-</div>
-<div id="order-shipping_address" class="box-right">
-<div class="entry-edit" style="position: relative;">
 
-<div class="entry-edit-head">
-    <h4 class="icon-head fieldset-legend head-shipping-address">Shipping Address</h4>
-</div>
-<?php //if($shipping):?>
-<fieldset class="np">
-
-    <div class="order-address" id="order-shipping_address_fields">
-        <div class="content">
-            <div class="hor-scroll">
-                <table cellspacing="0" class="form-list">
-                    <tbody>
-                        <tr>
-                            <td>
-                                <input name="sameAsBilling" type="checkbox"
-                id="order-billing_address_same_as_billing"  checked>
-                                <label for="order-billing_address_same_as_billing">Same as Billing</label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="label"><label for="order-shipping_address_street0">Street Address
-                                    <span class="required">*</span></label></td>
-                            <td class="value">
-                                <div class="multi-input"><input id="order-shipping_address_street"
-                                        name="shipping[street]"
-                                        value="<?php echo $shipping['street']; ?>"
-                                        class="input-text required-entry" type="text" disabled="">
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="label"><label for="order-shipping_address_postcode">Zip/Postal Code
-                                    <span class="required">*</span></label></td>
-                            <td class="value">
-                                <input id="postcode"
-                                    name="shipping[postcode]"
-                                    value="<?php echo $shipping['postcode']; ?>"
-                                    class=" required-entry input-text required-entry" type="text"
-                                    disabled="">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="label"><label for="order-shipping_address_city">City <span
-                                        class="required">*</span></label></td>
-                            <td class="value">
-                                <input id="city" name="shipping[city]"
-                                    value="<?php echo $shipping['city']; ?>"
-                                    class=" required-entry input-text required-entry" type="text"
-                                    disabled="">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="label"><label for="order-shipping_address_state">State <span
-                                        class="required">*</span></label></td>
-                            <td class="value">
-                                <input id="state"
-                                    name="shipping[region]"
-                                    value="<?php echo $shipping['region']; ?>"
-                                    class=" required-entry input-text required-entry" type="text"
-                                    disabled="">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="label"><label for="order-shipping_address_country">Country<span
-                                        class="required">*</span></label>
-                            </td>
-                            <td class="value">
-                                <input id="country"
-                                    name="shipping[country_id]"
-                                    value="<?php echo $shipping['country_id']; ?>"
-                                    class="required-entry input-text" type="text" disabled="">
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+        <div id="order-shipping_address" class="box-right">
+        <div class="entry-edit">
+            <div class="entry-edit-head">
+                <h4 class="icon-head fieldset-legend head-shipping-address">Shipping Address</h4>
+                <div class="form-buttons">
+                    <button id="submit_order_top_button" type="button" onclick="return validate('<?php echo $this->getShippingAddressUrl() ?>','s');" class="scalable save">
+                        <span><span><span>Update</span></span></span>
+                    </button>
+                </div>
             </div>
+            <fieldset class="np">
+                <div id="order-shipping_address_choice" class="order-choose-address">
+                    <input type="checkbox" <?php if($shippingAddress['same_as_billing']){echo "checked";} ?> id="sameAsBillingcheck" name="same_as_billing" onclick="return sameAsChecked()"/>
+                    <label for="sameAsBilling" class="no-float">Same As Billing Address</label>
+                </div>
+                <div class="order-address" id="order-shipping_address_fields">
+                    <div class="content">
+                        <div class="hor-scroll">
+                            <table id="shipping" cellspacing="0" class="form-list">
+                                <tbody>
+                                    <tr>
+                                        <td class="label"><label for="first_name">First Name <span class="required">*</span></label></td>
+                                        <td class="value">
+                                            <input id="shipping_first_name" name="shipping[firstname]" value="<?php echo $this->getValue($shippingAddress, 'firstname'); ?>" class="input-text required-entry" type="text" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="label"><label for="last_name">Last Name <span class="required">*</span></label></td>
+                                        <td class="value">
+                                            <input id="shipping_last_name" name="shipping[lastname]" value="<?php echo $this->getValue($shippingAddress, 'lastname'); ?>" class="input-text required-entry" type="text" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="label"><label for="address">Street Address <span class="required">*</span></label></td>
+                                        <td class="value">
+                                            <input id="shipping_address" name="shipping[street]" value="<?php echo $this->getValue($shippingAddress, 'street'); ?>" class="input-text required-entry" type="text" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="label"><label for="city">City <span class="required">*</span></label></td>
+                                        <td class="value">
+                                            <input id="shipping_city" name="shipping[city]" value="<?php echo $this->getValue($shippingAddress, 'city'); ?>" class=" required-entry input-text" type="text" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="label"><label for="state">State/Province <span class="required">*</span></label></td>
+                                        <td class="value"><input id="shipping_state" name="shipping[region]" value="<?php echo $this->getValue($shippingAddress, 'region'); ?>" class="input-text required-entry" type="text" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="label"><label for="country">Country <span class="required">*</span></label></td>
+                                        <td class="value">
+                                            <select id="shipping_country" name="shipping[country_id]" class="required-entry required-entry select">
+                                                <?php foreach ($this->getCountryOptions() as $country) : ?>
+                                                    <option value="<?php echo $country['value'] ?>" <?php if ($country['value'] == $this->getValue($shippingAddress, 'country_id')){ echo "selected";} ?>><?php echo $country['label'] ?></option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="label"><label for="zipcode">Zip/Postal Code <span class="required">*</span></label></td>
+                                        <td class="value">
+                                            <input id="shipping_zipcode" name="shipping[postcode]" value="<?php echo $this->getValue($shippingAddress, 'postcode'); ?>" class=" required-entry input-text required-entry" type="text" />
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="order-save-in-address-book">
+                        <input name="save_to_shipping_address" type="checkbox" id="shippingSaveToAddress" />
+                        <label for="saveToAddress">Save in address book</label>
+                    </div>
+                </div>
+            </fieldset>
         </div>
-        <div class="order-save-in-address-book">
-            <input name="shippingAddressBook" type="checkbox"
-                id="order-shipping_address_save_in_address_book" value="1">
-            <label for="order-shipping_address_save_in_address_book">Save in address book</label>
-        </div>
-        <div class="form-group mt-3">
-    		<button class="btn btn-success" type="button" onclick="object.resetParam().setUrl('<?= $this->getUrl('*/*/updateAddress',['id' => $this->getRequest()->getParam('id'),'type' => 'shipping']) ?>').setParams(jQuery('#cartForm').serializeArray()).load()">Update</button>
-		</div>
     </div>
-<?php //endif; ?>
-</fieldset>
-</div>
-</div>
-</div>
+
+<script type="text/javascript">
+
+    function sameAsChecked() {
+        var billingAddress = document.getElementById('billing_address').value; 
+        var billingzipcode = document.getElementById('billing_zipcode').value; 
+        var billingCountry = document.getElementById('billing_country').value; 
+        var billingState = document.getElementById('billing_state').value; 
+        var billingCity = document.getElementById('billing_city').value; 
+        var billingFname = document.getElementById('billing_first_name').value; 
+        var billingLname = document.getElementById('billing_last_name').value; 
+     
+        if(billingAddress == '' || billingzipcode == ''|| billingCountry == '' || billingState == '' || billingCity == '' || billingFname == '' || billingLname == ''){
+            alert('Please Fill the Billing Address First');
+            return false;
+
+        }
+        var shippingAddress = document.getElementById('shipping_address'); 
+        var shippingzipcode = document.getElementById('shipping_zipcode'); 
+        var shippingCountry = document.getElementById('shipping_country'); 
+        var shippingState = document.getElementById('shipping_state'); 
+        var shippingCity = document.getElementById('shipping_city'); 
+        var shippingFname = document.getElementById('shipping_first_name'); 
+        var shippingLname = document.getElementById('shipping_last_name');
+
+        shippingAddress.value = billingAddress;
+        shippingLname.value = billingLname;
+        shippingFname.value = billingFname;
+        shippingzipcode.value = billingzipcode;
+        shippingCountry.value = billingCountry;
+        shippingState.value = billingState;
+        shippingCity.value = billingCity;
+    //  }      
+    }
+      // var sameAsBilling = document.getElementById('sameAsBillingcheck').value;
+      // if(sameAsBilling == 1){
+</script>

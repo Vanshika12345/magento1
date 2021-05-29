@@ -1,82 +1,74 @@
-<?php $cart = $this->getCart();?>
-<?php $items = $cart->getCartItems();?>
-<div class="entry-edit">
-    <div class="entry-edit-head">
-        <h4 class="icon-head head-cart">Items Ordered</h4>
-        <div class="form-buttons">
-        <button id="submit_order_top_button" type="button" onclick="object.resetParam().setParams(jQuery('#cartForm').serializeArray()).setUrl('<?php echo $this->getUrl('*/*/changeQuantity',['id' => $this->getRequest()->getParam('id')])?>').load()" class="scalable save">
-                    <span><span><span>Update Items</span></span></span>
-                </button>
-            <button class="scalable add" onclick="showProductGrid()"type="button"><span>Add Products</span></button>
+<?php $products = $this->getProducts(); ?>
+<div id="products">
+    <div id="order-search" class="order-search-items">
+        <div class="entry-edit">
+            <div class="entry-edit-head">
+                <div style="float: right;">
+                    <button title="Add Selected Product(s) to Order" type="button" onclick="changeAction('<?php echo $this->getUrl('*/adminhtml_order/addProduct',array('_current' => true)); ?>')" class="scalable add"><span><span><span>Add Selected Product(s) to Order</span></span></span></button>
+                </div>
+                <h4 class="fieldset-legend head-catalog-product icon-head">Please Select Products to Add</h4>
+            </div>
+            <div class="fieldset">
+
+                <div id="sales_order_create_search_grid">
+                    <table cellspacing="0" class="actions">
+                <!--         <tr>
+                            <td class="pager">
+                                Page
+                                <img src="http://127.0.0.1/phpCode/magento/skin/adminhtml/default/default/images/pager_arrow_left_off.gif" alt="Go to Previous page" class="arrow" />
+
+                                <input type="text" name="page" value="1" class="input-text page" onkeypress="sales_order_create_search_gridJsObject.inputPage(event, '1')" />
+
+                                <img src="http://127.0.0.1/phpCode/magento/skin/adminhtml/default/default/images/pager_arrow_right_off.gif" alt="Go to Next page" class="arrow" />
+
+                                of 1 pages <span class="separator">|</span>
+                                View <select name="limit" onchange="sales_order_create_search_gridJsObject.loadByElement(this)">
+                                    <option value="20" selected="selected">20</option>
+                                    <option value="30">30</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                    <option value="200">200</option>
+                                </select>
+                                per page<span class="separator">|</span>
+                                Total 2 records found <span id="sales_order_create_search_grid-total-count" class="no-display">2</span>
+                            </td>
+                            </tr> -->
+                    </table>
+                    <div class="grid">
+                        <div class="hor-scroll">
+                            <table cellspacing="0" class="data" id="sales_order_create_search_grid_table">
+                                <col width="60" />
+                                <col />
+                                <col width="80" />
+                                <col width="100" />
+                                <col width="55" />
+                                <col width="1" />
+                                <thead style="background-color: rgb(111, 137, 146);">
+                                    <th style="color:white;">ID</th>
+                                    <th style="color:white;">Product Name</th>
+                                    <th style="color:white;">SKU</th>
+                                    <th style="color:white;">Price</th>
+                                    <th style="color:white;">Select</th>
+                                </thead>
+
+                                <tbody>
+                                    <?php foreach ($products as $key => $product) : ?>
+                                        <tr title="#">
+                                            <td class=" "><?php echo $product['entity_id']; ?></td>
+                                            <td class=" "><?php echo $product['name']; ?></td>
+                                            <td class=" "><?php echo $product['sku']; ?></td>
+                                            <td class="a-center price a-right "><?php echo $product['price']; ?></td>
+                                            <td class="a-center ">
+                                                <input type="checkbox" name="products[]" value="<?php echo $product['entity_id']; ?>" class="checkbox" />
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    
-<div class="grid" id="order-items_grid">
-    <table cellspacing="0" class="data order-tables">
-        <colgroup><col>
-        <col width="100">
-        <col width="40">
-        <col width="100">
-        <col width="80">
-        <col width="100">
-        <col width="80">
-        </colgroup> 
-        <thead>
-                    <tr class="headings">
-                        <th class="no-link">Product Name</th>
-                        <th class="no-link">SKU</th>
-                        <th class="no-link">Product Id</th>
-                        <th class="no-link">Quantity</th>
-                        <th class="no-link">Base Price</th>
-                        <th class="no-link">Price</th>
-                        <th class="no-link last">Action</th>
-                    </tr>
-                </thead>
-        <tbody>
-            <?php if ($items) : ?>
-                <?php foreach ($items->getData() as $key => $value) : ?>
-                    <tr class="even">
-                        <td><?php echo $this->getProductName($value['product_id']); ?></td>
-                            <td><?php echo $this->getProductSKU($value['product_id']); ?></td>
-                            <td><?php echo $value['product_id']; ?></td>
-                            <td><input type="number" name="quantity[<?php echo $value['entity_id']; ?>]" value="<?php echo $value['quantity']; ?>"></td>
-                            <td><?php echo $value['base_price']; ?></td>
-                            <td><?php echo $value['price']; ?></td>
-                            <td>
-                                <button type="button" onclick="object.resetParam().setParams(jQuery('#cartForm').serializeArray()).setUrl('<?php echo $this->getUrl('*/*/delete',['itemId' => $value['entity_id'],'id' => $this->getRequest()->getParam('id')])?>').load()"class="scalable delete">
-                                        <span><span><span>Delete</span></span></span>
-                                </button>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                <?php else : ?>
-                    <tr class="even">
-                        <td class="empty-text a-center" colspan="100">No ordered items</td>
-                    </tr>
-                <?php endif; ?>
-                </tbody>
-    </table>
 </div>
-</div>
-<div id="productGridContent">
-    	<?php echo $this->getLayout()->createBlock('order/adminhtml_order_cart_index_product_grid')->setCart($this->getCart())->toHtml() ?>
-</div>
-<script type="text/javascript">
-		document.getElementById('productGridContent').style.display = 'none';
-	function showProductGrid() {
-		document.getElementById('productGridContent').style.display = 'block';
-	}	
-
-	function addProduct() {
-         object.resetParam().setParams(jQuery('#cartForm').serializeArray()).setUrl('<?php  echo $this->getUrl('*/*/addToCart',['id' => $this->getRequest()->getParam('id')])?>').load();
-        document.getElementById('productGridContent').style.display = 'none';
-
-	}
-
-    /*function changeAction(value) {
-        form = document.getElementById('cartForm');
-        form.action = value;
-        form.submit();
-    }*/
-</script>
-
