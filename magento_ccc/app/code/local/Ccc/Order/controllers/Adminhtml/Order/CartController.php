@@ -255,6 +255,7 @@ class Ccc_Order_Adminhtml_Order_CartController extends Mage_Adminhtml_Controller
         unset($orderModel['cart_id']);
         date_default_timezone_set('Asia/Kolkata');
         $orderModel->setCreatedAt(date('Y-m-d H:i:s'));
+        $orderModel->setCustomerName($billingAddress->getFirstname().' '.$billingAddress->getLastname());
         $orderModel->save();
 
 
@@ -266,46 +267,46 @@ class Ccc_Order_Adminhtml_Order_CartController extends Mage_Adminhtml_Controller
             unset($orderItemModel['cart_id']);
             $orderItemModel->setOrderId($orderModel->getId());
             $orderItemModel->save();
-           // $item->delete();
+            $item->delete();
             
         }
 
         $orderAddress = Mage::getModel('order/order_address');
-        //$orderAddress->setData($billingAddress);
+        $orderAddress->setData($billingAddress->getData());
         //print_r($billingAddress); 
         unset($orderAddress['cart_id']);
         unset($orderAddress['cart_address_id']);
         unset($orderAddress['address_id']);
         $orderAddress->setOrderId($orderModel->getId());
         $orderAddress->setCreatedAt(date('Y-m-d H:i:s'));
-        $orderAddress->setAddressType(1);
+        /*$orderAddress->setAddressType(1);
         $orderAddress->setCity($billingAddress->city);
         $orderAddress->setStreet($billingAddress->street);
         $orderAddress->setRegion($billingAddress->region);
         $orderAddress->setCountryId($billingAddress->country_id);
         $orderAddress->setPostcode($shippingAddress->postcode);
-        $orderAddress->setFirstName($billingAddress->first_name);
-        $orderAddress->setLastName($billingAddress->last_name);
+        $orderAddress->setFirstname($billingAddress->firstname);
+        $orderAddress->setLastname($billingAddress->lastname);*/
         
         $orderAddress->save();
         Mage::getModel('order/order_cart_address')->load($billingAddress['cart_address_id'])->delete();
 
 
         $orderAddress = Mage::getModel('order/order_address');
-       // $orderAddress->setData($shippingAddress);
+        $orderAddress->setData($shippingAddress->getData());
         unset($orderAddress['cart_id']);
         unset($orderAddress['cart_address_id']);
         $orderAddress->setOrderId($orderModel->getId());
         $orderAddress->setCreatedAt(date('Y-m-d H:i:s'));
-        $orderAddress->setAddressType(2);
+        /*$orderAddress->setAddressType(2);
         $orderAddress->setCity($shippingAddress->city);
         $orderAddress->setStreet($shippingAddress->street);
         $orderAddress->setRegion($shippingAddress->region);
         $orderAddress->setCountryId($shippingAddress->country_id);
         $orderAddress->setPostcode($shippingAddress->postcode);
-        $orderAddress->setFirstName($shippingAddress->first_name);
-        $orderAddress->setLastName($shippingAddress->last_name);
-        $orderAddress->setSameAsBilling($shippingAddress->same_as_billing);
+        $orderAddress->setFirstname($shippingAddress->firstname);
+        $orderAddress->setLastName($shippingAddress->lastname);
+        $orderAddress->setSameAsBilling($shippingAddress->same_as_billing);*/
         $orderAddress->save();
         $addressModel = Mage::getModel('order/order_cart_address')->load($shippingAddress['cart_address_id'])->delete();
 

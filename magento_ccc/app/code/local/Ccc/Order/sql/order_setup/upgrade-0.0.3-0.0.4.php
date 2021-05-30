@@ -17,13 +17,17 @@ $table = $installer->getConnection()
 			'nullable' => false,
 		], 'Customer Id'
 	)
+	->addColumn('customer_name',
+		Varien_Db_Ddl_Table::TYPE_TEXT, null, [
+			'nullable' => false,
+		], 'Customer Name')
 	->addColumn('discount',
-		Varien_Db_Ddl_Table::TYPE_DECIMAL, null, [
+		Varien_Db_Ddl_Table::TYPE_DECIMAL, '10,2', [
 			'nullable' => true,
 		], 'Discount'
 	)
 	->addColumn('total',
-		Varien_Db_Ddl_Table::TYPE_DECIMAL, null, [
+		Varien_Db_Ddl_Table::TYPE_DECIMAL, '10,2', [
 			'nullable' => false,
 		], 'Total'
 	)
@@ -38,7 +42,7 @@ $table = $installer->getConnection()
 		], 'Shipment Method Code'
 	)
 	->addColumn('shipping_amount',
-		Varien_Db_Ddl_Table::TYPE_DECIMAL, null, [
+		Varien_Db_Ddl_Table::TYPE_DECIMAL, '10,2', [
 			'nullable' => false,
 		], 'Shipping Amount'
 	)

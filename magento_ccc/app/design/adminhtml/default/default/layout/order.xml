@@ -11,11 +11,6 @@
         </reference>
     </order_adminhtml_order_customergrid>
     <order_adminhtml_order_cart_index>
-        <!-- <reference name="head">
-            <action method="addJs"><script>ccc/jquery-3.6.0.js</script></action> 
-            <action method="addJs"><script>ccc/after_jquery.js</script></action>
-            <action method="addJs"><script>ccc/mage.js</script></action>    
-        </reference> -->
         <reference name="content">
         <block type="order/adminhtml_order_cart_index" name="cart" template="order/cart/index.phtml">
             <block type="order/adminhtml_order_cart_index_account" name="account" template="order/cart/index/account.phtml"/>

@@ -22,6 +22,16 @@ $table = $installer->getConnection()
 			'nullable' => false,
 		], 'Address Id'
 	)
+	->addColumn('firstname',
+		Varien_Db_Ddl_Table::TYPE_VARCHAR,60, [
+			'nullable' => false,
+		], 'First name'
+	)
+	->addColumn('lastname',
+		Varien_Db_Ddl_Table::TYPE_VARCHAR, 60, [
+			'nullable' => false,
+		], 'Last name'
+	)
 	->addColumn('address_type',
 		Varien_Db_Ddl_Table::TYPE_SMALLINT, null, [
 			'nullable' => false,

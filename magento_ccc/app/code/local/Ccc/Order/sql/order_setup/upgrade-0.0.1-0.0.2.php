@@ -16,6 +16,12 @@ $table = $installer->getConnection()->newTable($installer->getTable('order/cart_
 	->addColumn('address_id',Varien_Db_Ddl_Table::TYPE_INTEGER,null,[
 		'nullable' => true
 	],'addressId')
+	->addColumn('firstname',Varien_Db_Ddl_Table::TYPE_VARCHAR,64,[
+		'nullable' => false
+	],'firstname')
+	->addColumn('lastname',Varien_Db_Ddl_Table::TYPE_VARCHAR,64,[
+		'nullable' => false
+	],'lastname')
 	->addColumn('address_type',Varien_Db_Ddl_Table::TYPE_TINYINT,null,[
 		'nullable' => false
 	],'addressType')

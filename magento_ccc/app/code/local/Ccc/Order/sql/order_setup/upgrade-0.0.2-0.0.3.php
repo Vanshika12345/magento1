@@ -28,24 +28,24 @@ $table = $installer->getconnection()
 		], 'Quantity'
 	)
 	->addColumn('base_price',
-		Varien_Db_Ddl_Table::TYPE_DECIMAL, null, [
+		Varien_Db_Ddl_Table::TYPE_DECIMAL,'10,2', [
 			'nullabe' => true,
 		], 'Base Price'
 	)
 	->addColumn('price',
-		Varien_Db_Ddl_Table::TYPE_DECIMAL, null, [
+		Varien_Db_Ddl_Table::TYPE_DECIMAL, '10,2', [
 			'nullable' => false,
 		], 'Price'
 	)
 	->addColumn('discount',
-		Varien_Db_Ddl_Table::TYPE_DECIMAL, null, [
+		Varien_Db_Ddl_Table::TYPE_DECIMAL, '10,2', [
 			'nullable' => true,
 		], 'Discount'
 	)
 	->addColumn('created_at',
 		Varien_Db_Ddl_Table::TYPE_DATETIME, null, [
 			'nullable' => true,
-		]
+		],'Created At'
 	);
 
 $installer->getconnection()->createTable($table);

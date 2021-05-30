@@ -28,12 +28,12 @@ $table = $installer->getConnection()
 		], 'Quantity'
 	)
 	->addColumn('price',
-		Varien_Db_Ddl_Table::TYPE_DECIMAL, null, [
+		Varien_Db_Ddl_Table::TYPE_DECIMAL, '10,2', [
 			'nullable' => false,
 		], 'Price'
 	)
 	->addColumn('discount',
-		Varien_Db_Ddl_Table::TYPE_DECIMAL, null, [
+		Varien_Db_Ddl_Table::TYPE_DECIMAL,'10,2', [
 			'nullable' => true,
 		], 'Discount'
 	)
