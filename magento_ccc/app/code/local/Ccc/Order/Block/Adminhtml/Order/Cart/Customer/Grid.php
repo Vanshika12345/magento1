@@ -98,7 +98,7 @@ class Ccc_Order_Block_Adminhtml_Order_Cart_Customer_Grid extends Mage_Adminhtml_
 
     public function getGridUrl()
     {
-        return $this->getUrl('*/*/grid', array('_current'=> true));
+        return $this->getUrl('*/*/customerGrid', array('_current'=> true));
     }
 
     public function getRowUrl($row)
