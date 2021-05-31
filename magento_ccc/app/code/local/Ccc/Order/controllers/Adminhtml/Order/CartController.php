@@ -3,44 +3,44 @@
 class Ccc_Order_Adminhtml_Order_CartController extends Mage_Adminhtml_Controller_Action
 {
 
-	public function indexAction()
-	{
-		try{
+    public function indexAction()
+    {
+        try{
 
-			$cart = $this->_getCart();
-			$this->loadLayout();
-			$block = $this->getLayout()->getBlock('cart');
-			$block->setCart($cart);
-			$this->renderLayout();
+            $cart = $this->_getCart();
+            $this->loadLayout();
+            $block = $this->getLayout()->getBlock('cart');
+            $block->setCart($cart);
+            $this->renderLayout();
 
-		}catch(Exception $e){
-			Mage::getSingleton('core/session')->addError($e->getMessage());
-		}
+        }catch(Exception $e){
+            Mage::getSingleton('core/session')->addError($e->getMessage());
+        }
 
-	}
+    }
 
-	protected function _getCart() {
-		$customerId =  $this->getRequest()->getParam('id');
-		$customer = Mage::getModel('customer/customer')->load($customerId);
+    protected function _getCart() {
+        $customerId =  $this->getRequest()->getParam('id');
+        $customer = Mage::getModel('customer/customer')->load($customerId);
 
-		if (!$customer->getId()) {
-			throw new Exception('Customer not found');
-		}
+        if (!$customer->getId()) {
+            throw new Exception('Customer not found');
+        }
 
-		$session = Mage::getModel('order/session');
-		$session->setCustomerId($customerId);
+        $session = Mage::getModel('order/session');
+        $session->setCustomerId($customerId);
 
-		$cart = Mage::getModel('order/order_cart')->load($customerId, 'customer_id');
-		if ($cart->getId()) {
-			return $cart;
-		}
-		$cart->customer_id = $customerId;
-		$cart->created_at = date('Y-m-d H:i:s');
-		$cart->save();
-		return $cart;
-	}
+        $cart = Mage::getModel('order/order_cart')->load($customerId, 'customer_id');
+        if ($cart->getId()) {
+            return $cart;
+        }
+        $cart->customer_id = $customerId;
+        $cart->created_at = date('Y-m-d H:i:s');
+        $cart->save();
+        return $cart;
+    }
 
-	protected function getItemIds($cart){
+    protected function getItemIds($cart){
         $ids = [];
         $collection = Mage::getModel('order/order_cart_item')->getCollection()
                         ->addFieldToFilter('cart_id',['eq'=>$cart->getId()]);
@@ -56,7 +56,7 @@ class Ccc_Order_Adminhtml_Order_CartController extends Mage_Adminhtml_Controller
         return $price * $quantity;
     }
 
-	public function AddToCartAction(){
+    public function AddToCartAction(){
 
         $products = $this->getRequest()->getParam('product');
         $cart = $this->_getCart();
@@ -81,13 +81,16 @@ class Ccc_Order_Adminhtml_Order_CartController extends Mage_Adminhtml_Controller
                     $cartItem->setCreatedAt(date('Y-m-d H:i:s'));
                 }
                 $cartItem->save();
+                /*if($_SESSION['showGrid'] == 1){
+                    $_SESSION['showGrid'] = 0;   
+                }*/
             }
         }
         Mage::getSingleton('adminhtml/session')->addSuccess('Product is Added Successfully');
         $this->_redirect('*/adminhtml_order_cart/index',array('_current' => true));
     }
 
-	public function updateAddressAction()
+    public function updateAddressAction()
     {
         $cart = $this->_getCart();
         if ($this->getRequest()->getParam('type') == "billing") {
@@ -135,8 +138,8 @@ class Ccc_Order_Adminhtml_Order_CartController extends Mage_Adminhtml_Controller
     
     }
 
-	public function updateShippingAction()
-	{
+    public function updateShippingAction()
+    {
        $data = $this->getRequest()->getPost('shippingMethod');
         $data = explode('_',$data);
         if($data){
@@ -149,10 +152,10 @@ class Ccc_Order_Adminhtml_Order_CartController extends Mage_Adminhtml_Controller
         $this->_redirect('*/adminhtml_order_cart/index',array('_current' => true));
     
 
-	}
+    }
 
-	public function updatePaymentAction()
-	{
+    public function updatePaymentAction()
+    {
         
         $data = $this->getRequest()->getPost('payment');
         if($data){
@@ -163,9 +166,9 @@ class Ccc_Order_Adminhtml_Order_CartController extends Mage_Adminhtml_Controller
         Mage::getSingleton('adminhtml/session')->addSuccess('Payment Method Saved');
         $this->_redirect('*/adminhtml_order_cart/index',array('_current' => true));
 
-	}
+    }
 
-	 public function changeQuantityAction(){
+     public function changeQuantityAction(){
         $data = $this->getRequest()->getPost('quantity');
         if($data){
             foreach($data as $itemId=>$quantity){
@@ -204,16 +207,15 @@ class Ccc_Order_Adminhtml_Order_CartController extends Mage_Adminhtml_Controller
         $total = 0;
         if($items){
             foreach($items as $key=>$item){
-                $total += $this->calculatePrice($item['quantity'],$item['price']);
+                $total += $this->calculatePrice($item['quantity'],$item['base_price']);
             }
         }
         $total += $shipping;
         return $total;
     }
-	
+    
     public function placeOrderAction()
     {
-        //echo 1; die();
         $cart = $this->_getCart();
         $cartItems = $cart->getItems();
         $billingAddress = $cart->getCartBillingAddress();
@@ -279,15 +281,6 @@ class Ccc_Order_Adminhtml_Order_CartController extends Mage_Adminhtml_Controller
         unset($orderAddress['address_id']);
         $orderAddress->setOrderId($orderModel->getId());
         $orderAddress->setCreatedAt(date('Y-m-d H:i:s'));
-        /*$orderAddress->setAddressType(1);
-        $orderAddress->setCity($billingAddress->city);
-        $orderAddress->setStreet($billingAddress->street);
-        $orderAddress->setRegion($billingAddress->region);
-        $orderAddress->setCountryId($billingAddress->country_id);
-        $orderAddress->setPostcode($shippingAddress->postcode);
-        $orderAddress->setFirstname($billingAddress->firstname);
-        $orderAddress->setLastname($billingAddress->lastname);*/
-        
         $orderAddress->save();
         Mage::getModel('order/order_cart_address')->load($billingAddress['cart_address_id'])->delete();
 
@@ -298,15 +291,6 @@ class Ccc_Order_Adminhtml_Order_CartController extends Mage_Adminhtml_Controller
         unset($orderAddress['cart_address_id']);
         $orderAddress->setOrderId($orderModel->getId());
         $orderAddress->setCreatedAt(date('Y-m-d H:i:s'));
-        /*$orderAddress->setAddressType(2);
-        $orderAddress->setCity($shippingAddress->city);
-        $orderAddress->setStreet($shippingAddress->street);
-        $orderAddress->setRegion($shippingAddress->region);
-        $orderAddress->setCountryId($shippingAddress->country_id);
-        $orderAddress->setPostcode($shippingAddress->postcode);
-        $orderAddress->setFirstname($shippingAddress->firstname);
-        $orderAddress->setLastName($shippingAddress->lastname);
-        $orderAddress->setSameAsBilling($shippingAddress->same_as_billing);*/
         $orderAddress->save();
         $addressModel = Mage::getModel('order/order_cart_address')->load($shippingAddress['cart_address_id'])->delete();
 
