@@ -60,13 +60,13 @@ class Ccc_Order_Adminhtml_Order_CartController extends Mage_Adminhtml_Controller
 
         $products = $this->getRequest()->getParam('product');
         $cart = $this->_getCart();
-        $itemId = $this->getItemIds($cart);
+        $itemIds = $this->getItemIds($cart);
         if($products){
             foreach($products as $key=>$id){
                 $product = Mage::getModel('catalog/product')->load($id);
 
-                if(in_array($id,$itemId)){
-                    $cartItem = Mage::getModel('order/order_cart_item')->load($id);
+                if(in_array($id,$itemIds)){
+                    $cartItem = Mage::getModel('order/order_cart_item')->load(array_search($id,$itemIds));
                     $cartItem->quantity++;
                     $price = $this->calculatePrice($cartItem->getBasePrice(),$cartItem->getQuantity());
                     $cartItem->setPrice($price);
@@ -81,9 +81,7 @@ class Ccc_Order_Adminhtml_Order_CartController extends Mage_Adminhtml_Controller
                     $cartItem->setCreatedAt(date('Y-m-d H:i:s'));
                 }
                 $cartItem->save();
-                /*if($_SESSION['showGrid'] == 1){
-                    $_SESSION['showGrid'] = 0;   
-                }*/
+             //   $this->_getSession()->setData('showGrid',1);
             }
         }
         Mage::getSingleton('adminhtml/session')->addSuccess('Product is Added Successfully');
@@ -216,6 +214,7 @@ class Ccc_Order_Adminhtml_Order_CartController extends Mage_Adminhtml_Controller
     
     public function placeOrderAction()
     {
+        //echo 1; die();
         $cart = $this->_getCart();
         $cartItems = $cart->getItems();
         $billingAddress = $cart->getCartBillingAddress();
