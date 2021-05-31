@@ -8,28 +8,28 @@
 
 	<global>
 		<models>
-			<ccc_shipping>
+			<cccshipping>
 				<class>Ccc_MyShippingMethod_Model</class>
-			</ccc_shipping>
+			</cccshipping>
 		</models>
 		<helpers>
-			<ccc_shipping>
+			<cccshipping>
 				<class>Ccc_MyShippingMethod_Helper</class>
-			</ccc_shipping>
+			</cccshipping>
 		</helpers>
 	</global>
 	<default>
 		<carriers>
-			<ccc_shipping>
+			<cccshipping>
 				<active>1</active>
-				<model>ccc_shipping/carrier</model>
+				<model>cccshipping/carrier</model>
 				<title>Express Delivery</title>
 				<price>12.99</price>
 				<name>Express Delivery</name>
 				<sort_order>10</sort_order>
 				<sallowspecific>0</sallowspecific>
 				<express_max_weight>1</express_max_weight>
-			</ccc_shipping>
+			</cccshipping>
 		</carriers>
 	</default>
 </config>

@@ -2,7 +2,7 @@
 	<sections>
 		<carriers>
 			<groups>
-				<ccc_shipping>
+				<cccshipping>
 					<label>Express Delivery</label>
 					<frontend_type>text</frontend_type>
 					<sort_order>2</sort_order>
@@ -73,7 +73,7 @@
                             <show_in_store>1</show_in_store>
                         </price>
 					</fields>
-				</ccc_shipping>
+				</cccshipping>
 			</groups>
 		</carriers>
 	</sections>
