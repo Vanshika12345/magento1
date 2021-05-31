@@ -8,6 +8,7 @@ class Ccc_Order_Adminhtml_OrderController extends Mage_Adminhtml_Controller_Acti
 		$this->renderLayout();
 	}
 
+	
 	public function customerGridAction()
 	{
 		$this->loadLayout();

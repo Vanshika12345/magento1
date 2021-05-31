@@ -45,4 +45,9 @@ class Ccc_Order_Block_Adminhtml_Order_Cart_Index_Product_Grid extends Mage_Admin
         ));
         return $this;
     }
+
+    public function getGridUrl()
+    {
+        return $this->getUrl('*/*/', array('_current'=> true));
+    }
 }

@@ -62,27 +62,27 @@ class Ccc_Order_Block_Adminhtml_Order_Grid extends Mage_Adminhtml_Block_Widget_G
             'options' => Mage::getSingleton('order/order_config')->getStatuses(),
         ));*/
     
-        // if (Mage::getSingleton('admin/session')->isAllowed('order/order/actions/view')) {
-        //     $this->addColumn('action',
-        //         array(
-        //             'header'    => Mage::helper('order')->__('Action'),
-        //             'width'     => '50px',
-        //             'type'      => 'action',
-        //             'getter'     => 'getId',
-        //             'actions'   => array(
-        //                 array(
-        //                     'caption' => Mage::helper('order')->__('View'),
-        //                     'url'     => array('base'=>'*/order_order/view'),
-        //                     'field'   => 'order_id',
-        //                     'data-column' => 'action',
-        //                 )
-        //             ),
-        //             'filter'    => false,
-        //             'sortable'  => false,
-        //             'index'     => 'stores',
-        //             'is_system' => true,
-        //     ));
-        // }
+        if (Mage::getSingleton('admin/session')->isAllowed('order/order/actions/view')) {
+            $this->addColumn('action',
+                array(
+                    'header'    => Mage::helper('order')->__('Action'),
+                    'width'     => '50px',
+                    'type'      => 'action',
+                    'getter'     => 'getId',
+                    'actions'   => array(
+                        array(
+                            'caption' => Mage::helper('order')->__('View'),
+                            'url'     => array('base'=>'*/adminhtml_order/view'),
+                            'field'   => 'order_id',
+                            'data-column' => 'action',
+                        )
+                    ),
+                    'filter'    => false,
+                    'sortable'  => false,
+                    'index'     => 'stores',
+                    'is_system' => true,
+            ));
+        }
         $this->addRssList('rss/order/new', Mage::helper('order')->__('New Order RSS'));
 
         $this->addExportType('*/*/exportCsv', Mage::helper('order')->__('CSV'));
