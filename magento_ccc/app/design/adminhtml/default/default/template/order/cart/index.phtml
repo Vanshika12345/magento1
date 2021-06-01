@@ -17,7 +17,7 @@
 			</tr>
 			<tr>
 				<td>
-					<div id="productGridContent" style="display: none;">
+					<div id="productGridContent">
     				<?php echo $this->getChild('product')->setCart($this->getCart())->toHtml() ?>
 					</div>
 				</td>
@@ -61,16 +61,43 @@
 	</div>
 </form>
 <script type="text/javascript">
+	//console.log(1);
+	//	document.getElementById('productGridContent').style.display = 'none';
 	
 	function showProductGrid() {
 		document.getElementById('productGridContent').style.display = 'block';
+
+		<?php Mage::getSingleton('adminhtml/session')->setData('showGrid',0);?>
+
 	}
+
+	<?php Mage::getSingleton('adminhtml/session')->setData('showGrid',1)?>
+	<?php if(Mage::getSingleton('adminhtml/session')->getData('showGrid') == 0):?>
+		    document.getElementById('productGridContent').style.display = 'block';
+	<?php elseif(Mage::getSingleton('adminhtml/session')->getData('showGrid') == 1):?>
+		    document.getElementById('productGridContent').style.display = 'none';
+	<?php endif;?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	function changeAction(value) {
         form = document.getElementById('cartForm');
         form.action = value;
         form.submit();
     }
-
     function validate(url,method = ''){
         tbodys = document.getElementById('shipping').children[0];
         tbodyb = document.getElementById('billing').children[0];

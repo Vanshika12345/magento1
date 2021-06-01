@@ -11,6 +11,11 @@
         </reference>
     </order_adminhtml_order_customergrid>
     <order_adminhtml_order_cart_index>
+        <!-- <reference name="head">
+            <action method="addJs"><script>ccc/jquery-3.6.0.js</script></action> 
+            <action method="addJs"><script>ccc/after_jquery.js</script></action>
+            <action method="addJs"><script>ccc/mage.js</script></action>    
+        </reference> -->
         <reference name="content">
         <block type="order/adminhtml_order_cart_index" name="cart" template="order/cart/index.phtml">
             <block type="order/adminhtml_order_cart_index_account" name="account" template="order/cart/index/account.phtml"/>
@@ -30,8 +35,9 @@
             <block type="order/adminhtml_customer" name="order_customer" />
             <block type="order/adminhtml_products" name="order_product" />
             <block type="order/adminhtml_address" name="order_address"/>
-            <!-- <block type="order/adminhtml_order_cart_index_payment" name="paymentmethod" template="order/payment.phtml"/>
-            <block type="order/adminhtml_order_cart_index_shipping" name="shippingmethod" template="order/shipping.phtml"/> -->
+            <block type="order/adminhtml_payment" name="order_payment"/>
+            <block type="order/adminhtml_shipment" name="order_shipment"/>
+            <block type="order/adminhtml_comment" name="order_comment"/>
             <block type="order/adminhtml_orderDetails" name="order_details" template="order/orderdetails.phtml"/>
         </block>
     </reference>

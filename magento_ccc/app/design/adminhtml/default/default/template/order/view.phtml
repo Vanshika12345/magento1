@@ -1,10 +1,11 @@
 <div class="container">
 	<div class="form-buttons">
-            <button id="submit_order_top_button" type="button" onclick="goBack()" class="scalable back" style="float: right;">
+            <a id="submit_order_top_button" type="button" href="<?php echo $this->getUrl('order/adminhtml_order/index');?>" class="scalable back" style="float: right;">
             	<span><span><span>Back</span></span></span>
-            </button>
+            </a>
     </div>
-	<div class="row mt-4">
+    <br>
+	<div class="row mt-4" style="margin-top: 4px;">
 		<div class="col-md-10 offset-md-1">
 			<?php echo $this->getChild('order_customer')->toHtml() ?>
 		</div>
@@ -20,6 +21,21 @@
 		</div>
 	</div>
 	<div class="row mt-5">
+		<div class="col col-md-10 offset-md-1" id="paymentContent">
+			<?php echo $this->getChild('order_payment')->toHtml() ?>
+		</div>
+	</div>
+	<div class="row mt-5">
+		<div class="col col-md-10 offset-md-1" id="shipmentContent">
+			<?php echo $this->getChild('order_shipment')->toHtml() ?>
+		</div>
+	</div>
+	<div class="row mt-5">
+		<div class="col col-md-10 offset-md-1" id="commentContent">
+			<?php echo $this->getChild('order_comment')->toHtml() ?>
+		</div>
+	</div>
+	<div class="row mt-5">
 		<div class="col col-md-5 border offset-md-1" id="productOrderDetails">
 			<?php echo $this->getChild('order_details')->toHtml() ?>
 		</div>
@@ -29,6 +45,6 @@
 
 <script type="text/javascript">
 	function goBack() {
-		<?php $this->getUrl('*/*/index');?>		
+		<?php echo $this->getUrl('*/*/index');?>		
 	}
 </script>

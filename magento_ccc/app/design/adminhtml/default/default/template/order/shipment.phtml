@@ -1,0 +1,19 @@
+<?php $methods = $this->getShipmentName();?>
+<?php $code = $this->getShipmentMethod();?> 
+<?php //echo $name = $this->getShipmentName(); die();?>
+<div class="entry-edit box-right">
+    <div class="entry-edit-head">
+        <h4 class="icon-head head-payment-method">Shipment Information</h4>
+    </div>
+    <fieldset>
+       <div>
+       	<?php foreach ($methods as $key => $method): ?>
+       		<?php if($method->getId() == $code):?>
+       			<strong><?php echo $method->getConfigData('title');?></strong>-
+       			<strong><?php echo $method->getConfigData('name');?></strong>
+       			 $<?php echo $method->getConfigData('price'); ?>
+       		<?php endif;?>
+       	<?php endforeach ?>
+       </div>
+    </fieldset>
+</div>

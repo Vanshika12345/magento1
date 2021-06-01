@@ -1,23 +1,41 @@
 <?php $shippingAddress = $this->getOrderShippingAddress(); ?>
 <?php $billingAddress = $this->getOrderBillingAddress(); ?>
-
+<?php //echo "<pre>"; print_r($this->getCountryName()); die();?>
+<?php $countries = $this->getCountryName()?>
+<?php $countryName = $billingAddress->getCountryId()?>
 <div class="row">
-	<div class="col p-4 border">
-		<h4>Billing Address</h4>
-		<div>
-			<?= $billingAddress->address; ?>,
-			<br><?= $billingAddress->city ?>, 
-			<?= $billingAddress->state?> 
-			-<?= $billingAddress->zipcode?>
-		</div>
-	</div>
-	<div class="col ml-4 p-4 border">
-		<h4>Shipping Address</h4>
-		<div>
-			<?= $shippingAddress->address; ?>,
-			<br><?= $shippingAddress->city ?>, 
-			<?= $shippingAddress->state?> 
-			-<?= $shippingAddress->zipcode?>
-		</div>
-	</div>
+	<div class="entry-edit box-left">
+        <div class="entry-edit-head">
+            <h4 class="icon-head head-billing-address">Billing Address</h4>
+        </div>
+        <fieldset>
+            <address><?php echo $billingAddress->getFirstname().' '.$billingAddress->getLastname()?><br>
+				<?php echo $billingAddress->getStreet();?><br>
+				<?php echo $billingAddress->getCity();?> ,<?php echo $billingAddress->getRegion()?>, <?php echo $billingAddress->getPostcode()?><br>
+				<?php foreach($countries as $key => $country):?>
+					<?php if($country['country_id'] == $countryName):?>
+					<?php echo $country['name']?><br>
+				<?php endif;?>
+				<?php endforeach;?>
+			</address>
+        </fieldset>
+    </div>
+    <div class="entry-edit box-right">
+        <div class="entry-edit-head">
+            <h4 class="icon-head head-shipping-address">Shipping Address</h4>
+           
+        </div>
+        <fieldset>
+            <address><?php echo $shippingAddress->getFirstname().' '.$shippingAddress->getLastname()?><br>
+				<?php echo $shippingAddress->getStreet();?><br>
+				<?php echo $shippingAddress->getCity();?> ,<?php echo $shippingAddress->getRegion()?>, <?php echo $shippingAddress->getPostcode()?><br>
+				<?php foreach($countries as $key => $country):?>
+					<?php if($country['country_id'] == $countryName):?>
+					<?php echo $country['name']?><br>
+				<?php endif;?>
+				<?php endforeach;?>
+			</address>
+        </fieldset>
+    </div>
+	
 </div>

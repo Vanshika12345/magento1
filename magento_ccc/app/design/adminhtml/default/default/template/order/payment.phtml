@@ -1,0 +1,17 @@
+<?php $methods = $this->getPaymentName();?>
+<?php $code = $this->getPaymentMethod();?> 
+<?php //echo $name = $this->getShipmentName(); die();?>
+<div class="entry-edit box-left">
+    <div class="entry-edit-head">
+        <h4 class="icon-head head-payment-method">Payment Information</h4>
+    </div>
+    <fieldset>
+       <div>
+       	<?php foreach ($methods as $key => $method): ?>
+       		<?php if($method->getId() == $code):?>
+       			<strong><?php echo $method->getConfigData('title');?></strong>
+       		<?php endif;?>
+       	<?php endforeach ?>
+       </div>
+    </fieldset>
+</div>

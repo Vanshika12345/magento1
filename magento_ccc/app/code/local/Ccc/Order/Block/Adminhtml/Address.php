@@ -9,30 +9,32 @@ class Ccc_Order_Block_Adminhtml_Address extends Mage_Core_Block_Template
 		$this->setTemplate('order/address.phtml');
 	}
 
+	public function getOrder()
+	{
+		$id = $this->getRequest()->getParam('order_id');
+		return Mage::getModel('order/order')->load($id);
+	}
+
 	public function getOrderShippingAddress()
 	{
-		$orderId = $this->getRequest()->getParam('order_id');
-		$order = Mage::getModel('order/order')->load($orderId);
-		if ($order) {
-			$shippingAddress = $order->getShippingAddress();
-			if ($shippingAddress) {
-				return $shippingAddress;
-			}
-		}
+		return $this->getOrder()->getOrderShippingAddress();
 	}
 
 	public function getOrderBillingAddress()
 	{
-		$orderId = $this->getRequest()->getParam('order_id');;	
-		$order = Mage::getModel('order/order')->load($orderId);
-		if ($order) {
-			$billingAddress = $order->getBillingAddress();
-			if ($billingAddress) {
-				return $billingAddress;
-			}
-		} 
+		return $this->getOrder()->getOrderBillingAddress();
+		
 	}
 
+	public function getCountryName()
+	{
+		  $countryCollection = Mage::getModel('directory/country_api')->items();
+          
+          return $countryCollection;
+        
+      	// $countryName = $countryModel->getName();
+		// return $countryName;
+	}
 	
 }
 

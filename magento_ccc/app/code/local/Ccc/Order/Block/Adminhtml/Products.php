@@ -8,11 +8,25 @@ class Ccc_Order_Block_Adminhtml_Products extends Mage_Core_Block_Template
 		$this->setTemplate('order/products.phtml');
 	}
 
+	public function getOrder()
+	{
+		$id = $this->getRequest()->getParam('order_id');
+		return Mage::getModel('order/order')->load($id);
+	}
+
 	public function getProducts()
 	{
-		$orderId = $this->getRequest()->getParam('order_id');
-		$products = Mage::getModel('order/order')->load($orderId)->getItems();
-		return $products;
+		return $this->getOrder()->getItems();
 	}
+
+	 public function getProductName($id){
+        $product = Mage::getModel('catalog/product')->load($id);
+        return $product->getName();   
+    }
+
+    public function getProductSKU($id){
+        $product = Mage::getModel('catalog/product')->load($id);
+        return $product->getSku();
+    }
 
 }

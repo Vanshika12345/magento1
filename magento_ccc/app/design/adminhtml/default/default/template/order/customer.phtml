@@ -1,6 +1,37 @@
 <?php $order = $this->getOrder();?>
 <?php if($order):?>
 <?php $customer = $order->getCustomer();?>
-<h4>Order Id: <?php  echo $order->order_id; ?></h4>
-<h4>Customer Name: <?php echo $customer->firstname; ?>&nbsp;<?= $customer->lastname;?></h4>
-<?php endif;?>
+<?php //print_r(get_class_methods($customer)); die();?>
+
+<div class="entry-edit">
+        <div class="entry-edit-head">
+            <h4 class="icon-head head-account">Account Information</h4>
+            <div class="tools"></div>
+        </div>
+        <div class="fieldset">
+            <div class="hor-scroll">
+                <table cellspacing="0" class="form-list">
+                <tbody><tr>
+                    <td class="label"><label>Customer Name</label></td>
+                    <td class="value">
+                        <strong><?php echo $customer->getFirstname().' '.$customer->getLastname()?></strong></a>
+                                        </td>
+                </tr>
+                <tr>
+                    <td class="label"><label>Email</label></td>
+                    <td class="value"><a href="#"><strong><?php echo $customer->getEmail()?></strong></a></td>
+                </tr>
+                <!-- <tr>
+                    <td class="label"><label>Middle Name/Initial</label></td>
+                    <td class="value"><strong><?php //echo $customer->getMiddlename() ?></strong></td>
+                </tr> -->
+                <!-- <tr>
+                    <td class="label"><label>Group</label></td>
+                    <td class="value"><strong><?php //echo $customer->getGroupId() ?></strong></td>
+                </tr> -->
+            </tbody></table>
+            </div>
+        </div>
+    </div>
+
+ <?php endif; ?> 
