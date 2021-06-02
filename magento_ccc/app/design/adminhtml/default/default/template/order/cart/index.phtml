@@ -60,23 +60,18 @@
 		</table>
 	</div>
 </form>
+<?php $showGrid = Mage::getSingleton('adminhtml/session')->getData('showGrid'); ?>
 <script type="text/javascript">
-	//console.log(1);
-	//	document.getElementById('productGridContent').style.display = 'none';
-	
-	function showProductGrid() {
-		document.getElementById('productGridContent').style.display = 'block';
-
-		<?php Mage::getSingleton('adminhtml/session')->setData('showGrid',0);?>
-
+	if(<?php echo $showGrid; ?>){
+		showProductGrid();
+	} else {
+		document.getElementById('productGridContent').style.display = "none";
 	}
 
-	<?php Mage::getSingleton('adminhtml/session')->setData('showGrid',1)?>
-	<?php if(Mage::getSingleton('adminhtml/session')->getData('showGrid') == 0):?>
-		    document.getElementById('productGridContent').style.display = 'block';
-	<?php elseif(Mage::getSingleton('adminhtml/session')->getData('showGrid') == 1):?>
-		    document.getElementById('productGridContent').style.display = 'none';
-	<?php endif;?>
+	function showProductGrid() {
+		document.getElementById('productGridContent').style.display = "block";
+	}
+
 
 
 

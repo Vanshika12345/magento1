@@ -49,7 +49,6 @@ class Ccc_Order_Block_Adminhtml_Order_Cart_Index_Product_Grid extends Mage_Admin
 
     public function getGridUrl()
     {
-        Mage::getSingleton('adminhtml/session')->setData('showGrid',1);
-        return $this->getUrl('*/*/', array('_current'=> true));
+        return $this->getUrl('*/*/showGrid', array('_current'=> true));
     }
 }

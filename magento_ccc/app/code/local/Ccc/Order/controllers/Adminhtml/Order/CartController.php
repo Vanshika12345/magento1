@@ -81,9 +81,9 @@ class Ccc_Order_Adminhtml_Order_CartController extends Mage_Adminhtml_Controller
                     $cartItem->setCreatedAt(date('Y-m-d H:i:s'));
                 }
                 $cartItem->save();
-                Mage::getSingleton('adminhtml/session')->setData('showGrid',0);
             }
         }
+        $this->_getSession()->setData('showGrid',0);
         Mage::getSingleton('adminhtml/session')->addSuccess('Product is Added Successfully');
         $this->_redirect('*/adminhtml_order_cart/index',array('_current' => true));
     }
@@ -104,6 +104,7 @@ class Ccc_Order_Adminhtml_Order_CartController extends Mage_Adminhtml_Controller
                                     ->getBillingAddress();
                 $customerAddressBook->setData($billingAddressData);
                 $customerAddressBook->parent_id = $cart->customer_id;
+                $customerAddressBook->setIsDefaultBilling(1);
                 $customerAddressBook->save();   
 
             }
@@ -298,6 +299,12 @@ class Ccc_Order_Adminhtml_Order_CartController extends Mage_Adminhtml_Controller
 
         Mage::getSingleton('adminhtml/session')->addSuccess("Your Order Is Placed");
         $this->_redirect('*/adminhtml_order/index');
+    }
+
+    public function showGridAction()
+    {
+        $this->_getSession()->setData('showGrid',1);
+        $this->_redirect('*/*/index',['_current'=>true]);
     }
 }
 
