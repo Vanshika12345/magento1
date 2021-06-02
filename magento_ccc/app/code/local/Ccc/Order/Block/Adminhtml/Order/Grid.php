@@ -21,6 +21,8 @@ class Ccc_Order_Block_Adminhtml_Order_Grid extends Mage_Adminhtml_Block_Widget_G
     protected function _prepareCollection()
     {
         $collection = Mage::getResourceModel($this->_getCollectionClass());
+       // print_r($collection->getData());
+        //die();
         $this->setCollection($collection);
         return parent::_prepareCollection();
     }
@@ -35,32 +37,43 @@ class Ccc_Order_Block_Adminhtml_Order_Grid extends Mage_Adminhtml_Block_Widget_G
             'index' => 'order_id',
         ));
         
-        $this->addColumn('customer_name', array(
-            'header' => Mage::helper('order')->__('Customer Name'),
-            'index' => 'customer_name',
-        ));
-
-        $this->addColumn('total', array(
-            'header' => Mage::helper('order')->__('Grand Total'),
-            'index' => 'total',
-            'type'  => 'currency',
-            'currency' => 'order_currency_code',
-        ));
-
-        $this->addColumn('created_at',[
-            'header' => Mage::helper('order')->__('Created At'),
+         $this->addColumn('created_at',[
+            'header' => Mage::helper('order')->__('Purchased On'),
             'index' => 'created_at',
             'type' => 'date',
             'default' => '-'
         ]);
 
-        /*$this->addColumn('status', array(
+        $this->addColumn('billing_name', array(
+            'header' => Mage::helper('order')->__('Billing Name'),
+            'index' => 'billing_name',
+        ));
+
+        $this->addColumn('shipping_name', array(
+            'header' => Mage::helper('order')->__('Shipping Name'),
+            'index' => 'shipping_name',
+        ));
+
+        $this->addColumn('base_total', array(
+            'header' => Mage::helper('order')->__('Grand Total(Base)'),
+            'index' => 'base_total',
+            'type'  => 'currency',
+            'currency' => 'order_currency_code',
+        ));
+        $this->addColumn('total', array(
+            'header' => Mage::helper('order')->__('Grand Total(Purchased)'),
+            'index' => 'total',
+            'type'  => 'currency',
+            'currency' => 'order_currency_code',
+        ));
+
+       $this->addColumn('status', array(
             'header' => Mage::helper('order')->__('Status'),
             'index' => 'status',
             'type'  => 'options',
             'width' => '70px',
-            'options' => Mage::getSingleton('order/order_config')->getStatuses(),
-        ));*/
+            'options' => Mage::getSingleton('sales/order_config')->getStatuses(),
+        ));
     
         if (Mage::getSingleton('admin/session')->isAllowed('order/order/actions/view')) {
             $this->addColumn('action',

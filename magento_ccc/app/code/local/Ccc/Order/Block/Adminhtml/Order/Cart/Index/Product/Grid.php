@@ -41,6 +41,7 @@ class Ccc_Order_Block_Adminhtml_Order_Cart_Index_Product_Grid extends Mage_Admin
         $this->getMassactionBlock()->addItem('add_to_cart', array(
              'label'=> Mage::helper('order')->__('Add To Cart'),
              'url'  => $this->getUrl('*/adminhtml_order_cart/addtocart',array('_current'=>true)),
+             'selected' => true,
              'confirm' => Mage::helper('order')->__('Are you sure?')
         ));
         return $this;
@@ -48,6 +49,7 @@ class Ccc_Order_Block_Adminhtml_Order_Cart_Index_Product_Grid extends Mage_Admin
 
     public function getGridUrl()
     {
+        Mage::getSingleton('adminhtml/session')->setData('showGrid',1);
         return $this->getUrl('*/*/', array('_current'=> true));
     }
 }

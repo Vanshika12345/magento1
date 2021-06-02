@@ -81,7 +81,7 @@ class Ccc_Order_Adminhtml_Order_CartController extends Mage_Adminhtml_Controller
                     $cartItem->setCreatedAt(date('Y-m-d H:i:s'));
                 }
                 $cartItem->save();
-                $this->_getSession()->setData('showGrid',1);
+                Mage::getSingleton('adminhtml/session')->setData('showGrid',0);
             }
         }
         Mage::getSingleton('adminhtml/session')->addSuccess('Product is Added Successfully');
@@ -255,7 +255,9 @@ class Ccc_Order_Adminhtml_Order_CartController extends Mage_Adminhtml_Controller
         unset($orderModel['cart_id']);
         date_default_timezone_set('Asia/Kolkata');
         $orderModel->setCreatedAt(date('Y-m-d H:i:s'));
-        $orderModel->setCustomerName($billingAddress->getFirstname().' '.$billingAddress->getLastname());
+        $orderModel->setBaseTotal($cart->getTotal());
+        $orderModel->setBillingName($billingAddress->getFirstname().' '.$billingAddress->getLastname());
+        $orderModel->setShippingName($shippingAddress->getFirstname().' '.$shippingAddress->getLastname());
         $orderModel->save();
 
 

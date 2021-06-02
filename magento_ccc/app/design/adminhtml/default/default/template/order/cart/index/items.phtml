@@ -29,6 +29,7 @@
                         <th class="no-link">Quantity</th>
                         <th class="no-link">Base Price</th>
                         <th class="no-link">Price</th>
+                        <th class="no-link">Row Total</th>
                         <th class="no-link last">Action</th>
                     </tr>
                 </thead>
@@ -42,6 +43,7 @@
                                 <td><input type="number" name="quantity[<?php echo $value['cart_item_id']; ?>]" value="<?php echo $value['quantity']; ?>"></td>
                                 <td><?php echo $value['base_price']; ?></td>
                                 <td><?php echo $value['price']; ?></td>
+                                <td><?php echo $value['price'] * $value['quantity']; ?></td>
                                 <td>
                                     <button type="button" onclick="changeAction('<?php echo $this->getDeleteUrl($value['cart_item_id']) ?>');" class="scalable delete">
                                         <span><span><span>Delete</span></span></span>
