@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<modules>
+		<Ccc_MyShippingMethod>
+			<version>0.0.1</version>
+		</Ccc_MyShippingMethod>
+	</modules>
+
+	<global>
+		<models>
+			<cccshipping>
+				<class>Ccc_MyShippingMethod_Model</class>
+			</cccshipping>
+		</models>
+		<helpers>
+			<cccshipping>
+				<class>Ccc_MyShippingMethod_Helper</class>
+			</cccshipping>
+		</helpers>
+	</global>
+	<default>
+		<carriers>
+			<cccshipping>
+				<active>1</active>
+				<model>cccshipping/carrier</model>
+				<title>Express Delivery</title>
+				<price>12.99</price>
+				<name>Express Delivery</name>
+				<sort_order>10</sort_order>
+				<sallowspecific>0</sallowspecific>
+				<express_max_weight>1</express_max_weight>
+			</cccshipping>
+		</carriers>
+	</default>
+</config>
