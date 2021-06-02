@@ -1,8 +1,11 @@
+<form id="viewForm" action="<?php echo $this->getUrl('*/*/index'); ?>" method="POST">
+
+<?php echo $this->getBlockHtml('formkey'); ?>
 <div class="container">
 	<div class="form-buttons">
-            <a id="submit_order_top_button" type="button" href="<?php echo $this->getUrl('order/adminhtml_order/index');?>" class="scalable back" style="float: right;">
+            <button id="submit_order_top_button" type="button" onclick="goBack()" class="scalable back" style="float: right;">
             	<span><span><span>Back</span></span></span>
-            </a>
+            </button>
     </div>
     <br>
 	<div class="row mt-4" style="margin-top: 4px;">
@@ -42,9 +45,21 @@
 	</div>
 
 </div>
+</form>
 
 <script type="text/javascript">
+	
 	function goBack() {
-		<?php echo $this->getUrl('*/*/index');?>		
-	}
+    	confirm = confirm('Are you sure?');
+    	if(confirm){
+    		changeAction('<?php echo $this->getBackUrl() ?>');
+    	}
+    		
+    }
+
+    function changeAction(value) {
+        form = document.getElementById('viewForm');
+        form.action = value;
+        form.submit();
+    }
 </script>

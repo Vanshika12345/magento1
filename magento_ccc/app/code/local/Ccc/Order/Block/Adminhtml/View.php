@@ -1,9 +1,8 @@
 <?php  
-class Ccc_Order_Block_Adminhtml_View extends Mage_Core_Block_Template
+class Ccc_Order_Block_Adminhtml_View extends Mage_Adminhtml_Block_Template
 {
-	function __construct()
+	public function _construct()
 	{
-		parent::__construct();
 		$this->setTemplate('order/view.phtml');
 	}
 
@@ -14,6 +13,11 @@ class Ccc_Order_Block_Adminhtml_View extends Mage_Core_Block_Template
 	public function getOrder()
 	{
 		return $this->order;
+	}
+
+	public function getBackUrl()
+	{
+		return $this->getUrl('*/adminhtml_order/index');
 	}
 }
 
