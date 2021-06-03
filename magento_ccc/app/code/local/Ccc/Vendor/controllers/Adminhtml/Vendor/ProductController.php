@@ -25,20 +25,15 @@ class Ccc_Vendor_Adminhtml_Vendor_ProductController extends Mage_Adminhtml_Contr
 		$product->setAdminStatus('reject');
 		$product->save();
 
-		$this->_getSession()->addSuccess(Mage::helper('vendor')->__('Vendor Product Save Successfully.'));
+		$this->_getSession()->addSuccess(Mage::helper('vendor')->__('Vendor Product Rejected Successfully.'));
 		$this->_redirect('*/*/');
 	}
 
 	public function approveAction() {
 		$id = $this->getRequest()->getParam('id');
-		// print_r($id);
-		// die();
-
+		
 		try {
 			$vendorProduct = Mage::getModel('vendor/product')->load($id);
-			// echo "<pre>";
-			// print_r($vendorProduct);
-			// die();
 			$catalogProduct = Mage::getModel('catalog/product');
 
 			if (!$vendorProduct->getId()) {
@@ -63,6 +58,7 @@ class Ccc_Vendor_Adminhtml_Vendor_ProductController extends Mage_Adminhtml_Contr
 						->getEntityType('catalog_product')
 						->getDefaultAttributeSetId());
 				$catalogProduct->save();
+				$vendorProduct->setProductId($catalogProduct->getId());
 			} else if ($vendorProduct->getVendorStatus() == "delete") {
 				if ($vendorProduct->load($Id)) {
 					$vendorProduct->delete();

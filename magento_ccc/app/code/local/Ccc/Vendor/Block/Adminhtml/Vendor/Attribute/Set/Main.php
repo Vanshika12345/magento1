@@ -95,12 +95,12 @@ class Ccc_Vendor_Block_Adminhtml_Vendor_Attribute_Set_Main extends Mage_Adminhtm
     
     public function getMoveUrl()
     {
-        return $this->getUrl('*/vendor_set/save', array('id' => $this->_getSetId()));
+        return $this->getUrl('*/adminhtml_vendor_set/save', array('id' => $this->_getSetId()));
     }
 
     public function getGroupUrl()
     {
-        return $this->getUrl('*/vendor_group/save', array('id' => $this->_getSetId()));
+        return $this->getUrl('*/adminhtml_vendor_group/save', array('id' => $this->_getSetId()));
     }
 
     public function getGroupTreeJson()

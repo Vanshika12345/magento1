@@ -12,6 +12,18 @@ class Ccc_Vendor_Model_Product extends Mage_Catalog_Model_Product {
 		$this->_init('vendor/product');
 	}
 
+	/*protected function _getReadAdapter() {
+		if (is_string($this->_read)) {
+			$this->_read = Mage::getSingleton('core/resource')->getConnection($this->_read);
+		}
+		return $this->_read;
+	}*/
+
+	/*public function loadBySku($productSku)
+    {
+        return $this->_getResource()->loadBySku($productSku);
+    }*/
+	
 	public function getAttributes() {
 		if ($this->_attributes === null) {
 			$this->_attributes = $this->_getResource()

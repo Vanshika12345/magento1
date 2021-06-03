@@ -21,10 +21,10 @@ $installer->run(
     DROP TABLE IF EXISTS `{$installer->getTable('vendor_product_eav_attribute')}`;
     DROP TABLE IF EXISTS `{$installer->getTable('vendor_product_entity')}`;
     DROP TABLE IF EXISTS `{$installer->getTable('vendor_product_group')}`;
+    DROP TABLE IF EXISTS `{$installer->getTable('vendor_group')}`;
     DELETE FROM `eav_entity_type` WHERE `entity_type_code` IN('vendor_product');
     "
-    );
-
+	);
 $installer->addEntityType(Ccc_Vendor_Model_Resource_Vendor::ENTITY, [
 	'entity_model' => 'vendor/vendor',
 	'attribute_model' => 'vendor/attribute',

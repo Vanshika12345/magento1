@@ -46,7 +46,7 @@
                     <td class="value">
                         <select id="is_unique" name="is_unique" title="Unique Value (not shared with other products)" class=" select">
                             <?php foreach ($yesno as $input): ?>
-                                <option value="<?php echo $input['value'] ?>"><?php echo $input['label'] ?></option>
+                                <option value="<?php echo $input['value'] ?>" <?php if($input['value'] == $attribute->getIsUnique()): ?>selected <?php endif; ?>><?php echo $input['label'] ?></option> 
                             <?php endforeach; ?>
                         </select>                   
                     </td>

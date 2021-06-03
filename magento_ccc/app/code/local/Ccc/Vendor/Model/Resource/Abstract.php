@@ -389,28 +389,11 @@ abstract class Ccc_Vendor_Model_Resource_Abstract extends Mage_Eav_Model_Entity_
         return $data;
     }
 
-    /**
-     * Check is attribute value empty
-     *
-     * @param Mage_Eav_Model_Entity_Attribute_Abstract $attribute
-     * @param mixed $value
-     * @return bool
-     */
     protected function _isAttributeValueEmpty(Mage_Eav_Model_Entity_Attribute_Abstract $attribute, $value)
     {
         return $value === false;
     }
 
-    /**
-     * Return if attribute exists in original data array.
-     * Checks also attribute's store scope:
-     * We should insert on duplicate key update values if we unchecked 'STORE VIEW' checkbox in store view.
-     *
-     * @param Mage_Eav_Model_Entity_Attribute_Abstract $attribute
-     * @param mixed $value New value of the attribute.
-     * @param array $origData
-     * @return bool
-     */
     protected function _canUpdateAttribute(
         Mage_Eav_Model_Entity_Attribute_Abstract $attribute,
         $value,
@@ -428,14 +411,6 @@ abstract class Ccc_Vendor_Model_Resource_Abstract extends Mage_Eav_Model_Entity_
 
         return $result;
     }
-
-    /**
-     * Prepare value for save
-     *
-     * @param mixed $value
-     * @param Mage_Eav_Model_Entity_Attribute_Abstract $attribute
-     * @return mixed
-     */
     protected function _prepareValueForSave($value, Mage_Eav_Model_Entity_Attribute_Abstract $attribute)
     {
         $type = $attribute->getBackendType();
@@ -446,14 +421,6 @@ abstract class Ccc_Vendor_Model_Resource_Abstract extends Mage_Eav_Model_Entity_
         return parent::_prepareValueForSave($value, $attribute);
     }
 
-    /**
-     * Retrieve attribute's raw value from DB.
-     *
-     * @param int $entityId
-     * @param int|string|array $attribute atrribute's ids or codes
-     * @param int|Mage_Core_Model_Store $store
-     * @return bool|string|array
-     */
     public function getAttributeRawValue($entityId, $attribute, $store)
     {
         if (!$entityId || empty($attribute)) {
@@ -483,25 +450,16 @@ abstract class Ccc_Vendor_Model_Resource_Abstract extends Mage_Eav_Model_Entity_
                 $staticAttributes[] = $attributeCode;
                 $staticTable = $attrTable;
             } else {
-                /**
-                 * That structure needed to avoid farther sql joins for getting attribute's code by id
-                 */
                 $typedAttributes[$attrTable][$_attribute->getId()] = $attributeCode;
             }
         }
 
-        /**
-         * Collecting static attributes
-         */
         if ($staticAttributes) {
             $select = $adapter->select()->from($staticTable, $staticAttributes)
                 ->where($this->getEntityIdField() . ' = :entity_id');
             $attributesData = $adapter->fetchRow($select, array('entity_id' => $entityId));
         }
 
-        /**
-         * Collecting typed attributes, performing separate SQL query for each attribute type table
-         */
         if ($store instanceof Mage_Core_Model_Store) {
             $store = $store->getId();
         }
@@ -558,14 +516,6 @@ abstract class Ccc_Vendor_Model_Resource_Abstract extends Mage_Eav_Model_Entity_
         return $attributesData ? $attributesData : false;
     }
 
-    /**
-     * Reset firstly loaded attributes
-     *
-     * @param Varien_Object $object
-     * @param integer $entityId
-     * @param array|null $attributes
-     * @return Mage_Catalog_Model_Resource_Abstract
-     */
     public function load($object, $entityId, $attributes = array())
     {
         $this->_attributes = array();

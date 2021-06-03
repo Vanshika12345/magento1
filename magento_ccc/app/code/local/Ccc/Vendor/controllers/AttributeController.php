@@ -50,11 +50,6 @@ class Ccc_Vendor_AttributeController extends Mage_Core_Controller_Front_Action {
 		$this->renderLayout();
 	}
 
-	// public function editAction() {
-	// 	$this->loadLayout();
-	// 	$this->renderLayout();
-	// }
-
 	public function validateAction() {
 		$response = new Varien_Object();
 		$response->setError(false);
@@ -77,9 +72,7 @@ class Ccc_Vendor_AttributeController extends Mage_Core_Controller_Front_Action {
 
 	protected function _filterPostData($data) {
 		if ($data) {
-			/** @var $helperCatalog Mage_Catalog_Helper_Data */
 			$helperVendor = Mage::helper('vendor');
-			//labels
 			foreach ($data['frontend_label'] as &$value) {
 				if ($value) {
 					$value = $helperVendor->stripTags($value);
@@ -104,7 +97,6 @@ class Ccc_Vendor_AttributeController extends Mage_Core_Controller_Front_Action {
 		if ($id = $this->getRequest()->getParam('attribute_id')) {
 			$model = Mage::getModel('eav/entity_attribute');
 
-			// entity type check
 			$model->load($id);
 			if ($model->getEntityTypeId() != $this->_entityTypeId || !$model->getIsUserDefined()) {
 				Mage::getSingleton('vendor/session')->addError(
@@ -154,9 +146,7 @@ class Ccc_Vendor_AttributeController extends Mage_Core_Controller_Front_Action {
 				}
 			}
 
-			//validate frontend_input
 			if (isset($data['frontend_input'])) {
-				/* @var $validatorInputType Mage_Eav_Model_Adminhtml_System_Config_Source_Inputtype_Validator */
 				$validatorInputType = Mage::getModel('eav/adminhtml_system_config_source_inputtype_validator');
 				if (!$validatorInputType->isValid($data['frontend_input'])) {
 					foreach ($validatorInputType->getMessages() as $message) {
@@ -177,7 +167,6 @@ class Ccc_Vendor_AttributeController extends Mage_Core_Controller_Front_Action {
 					return;
 				}
 
-				// entity type check
 				if ($model->getEntityTypeId() != $this->_entityTypeId) {
 					$session->addError(
 						Mage::helper('vendor')->__('This attribute cannot be updated.'));
@@ -191,9 +180,6 @@ class Ccc_Vendor_AttributeController extends Mage_Core_Controller_Front_Action {
 				$data['frontend_input'] = $model->getFrontendInput();
 				$data['frontend_label'] = $model->getFrontendLabel();
 			} else {
-				/**
-				 * @todo add to helper and specify all relations for properties
-				 */
 				$data['source_model'] = $helper->getAttributeSourceModelByInputType($data['frontend_input']);
 				$data['backend_model'] = $helper->getAttributeBackendModelByInputType($data['frontend_input']);
 			}
@@ -216,16 +202,15 @@ class Ccc_Vendor_AttributeController extends Mage_Core_Controller_Front_Action {
 			if ($defaultValueField) {
 				$data['default_value'] = $this->getRequest()->getParam($defaultValueField);
 			}
-
+/*
 			if (!isset($data['apply_to'])) {
 				$data['apply_to'] = array();
-			}
+			}*/
 
-			//filter
 			$data = $this->_filterPostData($data);
 			$model->setVendorId($vendorId);
 			$model->setAttributeSetId(Mage::getResourceModel('vendor/product')->getEntityType()->getDefaultAttributeSetId());
-			$model->setAttributeCode(str_replace(" ", '_', strtolower($data['frontend_label'][0])));
+			$model->setAttributeCode($vendorId.'_'.str_replace(" ", '_', strtolower($data['frontend_label'][0])));
 			$model->addData($data);
 
 			if (!$id) {

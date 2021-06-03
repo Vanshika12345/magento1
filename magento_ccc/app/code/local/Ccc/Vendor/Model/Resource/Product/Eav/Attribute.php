@@ -15,7 +15,6 @@ class Ccc_Vendor_Model_Resource_Product_Eav_Attribute extends Mage_Eav_Model_Ent
 	protected function _afterSave() {
 
 		Mage::getSingleton('eav/config')->clear();
-
 		return parent::_afterSave();
 	}
 

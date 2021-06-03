@@ -79,82 +79,53 @@ class Ccc_Vendor_ProductController extends Mage_Core_Controller_Front_Action {
 			if (!$this->getRequest()->isPost()) {
 				throw new Exception("Invalid Request");
 			}
-
+			echo "<pre>";
 			$id = $this->getRequest()->getParam('id');
 			$data = $this->getRequest()->getPost();
-			$model = Mage::getModel('vendor/product');
-			$sku = $data['sku'];
-            $price = $data['price'];
-           	$cost = $data['cost'];
-           	$spprice = $data['special_price'];
-            if(!$data['name']){
-            	Mage::getSingleton('core/session')->addError("Please enter the product name");
-                    	$this->_redirect('*/*/edit');
-                        return;
-            }
-            if(!$sku){
-            	Mage::getSingleton('core/session')->addError("Please enter the sku");
-                    	$this->_redirect('*/*/edit');
-                        return;
-            }
-            
-            if($price < 0){
-            	Mage::getSingleton('core/session')->addError("Please enter the price in positive integers");
-                    	$this->_redirect('*/*/edit');
-                        return;
-            }
-            if(!$price){
-            	Mage::getSingleton('core/session')->addError("Please enter the Price");
-                    	$this->_redirect('*/*/edit');
-                        return;
-            }
-			$isSku = Mage::getModel('vendor/product')->getResource()->getSkuById($sku);
-                
+			//print_r($data); die();
+			$product = Mage::getModel('vendor/product');
+			$sku = $data['sku'];     
                 if(!$id){
                     
-                    if($isSku){
-                    	Mage::getSingleton('core/session')->addError("Product SKU already exists! (SKU must be unique.)");
-                    	$this->_redirect('*/*/edit');
-                        return;
-              
-                    }
                     $existsCatalogProduct = Mage::getModel('catalog/product')->getResource()->getIdBySku($sku);
                     if ($existsCatalogProduct) {
                     	Mage::getSingleton('core/session')->addError("Product SKU already exists!");
+                    	$this->_redirect('*/*/grid');
                         return;
                     }
                 }
 
-			foreach ($data as $key) {
+           foreach ($data as &$key) {
 				if (is_array($key)) {
 					$key = implode(',', $key);
 				}
 			}
 
 			if (!$id) {
-				$model->setData($data);
-				$model->setCreatedAt(date('Y-m-d H:i:s'));
-				$model->setUpdatedAt(date('Y-m-d H:i:s'));
-				$model->setVendorStatus('new');
-				$model->setAdminStatus('pending');
-				$model->setVendorId(Mage::helper('vendor')->_getSession()->getId());
+				$product->setData($data);
+				$product->setCreatedAt(date('Y-m-d H:i:s'));
+				$product->setUpdatedAt(date('Y-m-d H:i:s'));
+				$product->setVendorStatus('new');
+				$product->setAdminStatus('pending');
+				$product->setVendorId(Mage::helper('vendor')->_getSession()->getId());
 			} else {
-				$model = $model->load($id);
-				if (!$model->getId()) {
+				$product = $product->load($id);
+
+				if (!$product->getId()) {
 					throw new Exception("Invalid product Id");
 				}
-				$model->addData($data);
-				$model->setUpdatedAt(date('Y-m-d H:i:s'));
-				$model->setVendorStatus('edit');
-				$model->setAdminStatus('pending');
+				$product->addData($data);
+				$product->setUpdatedAt(date('Y-m-d H:i:s'));
+				$product->setVendorStatus('edit');
+				$product->setAdminStatus('pending');
 			}
 			
-			$model->save();
+			//$product->set1Size($data['1_size']);
+			//print_r($product); die();
+			$product->save();
 			Mage::helper('vendor')->_getSession($this->__('Vendor Product Save Successfully'));
 		} catch (Exception $e) {
-			print_r($e->getMessage());
-			die();
-			Mage::getModel('vendor/session')->addError($e->getMessage());
+			Mage::getModel('core/session')->addError($e->getMessage());
 		}
 		$this->_redirect('*/*/grid');
 	}
