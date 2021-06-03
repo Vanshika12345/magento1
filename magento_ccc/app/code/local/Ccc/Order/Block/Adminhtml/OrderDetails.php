@@ -3,26 +3,26 @@
 
 class Ccc_Order_Block_Adminhtml_OrderDetails extends Mage_Core_Block_Template
 {
-	protected $order;
-	protected $subtotal = 0;
+    protected $order;
+    protected $subtotal = 0;
     protected $finaltotal = 0;
-	function __construct()
-	{
-		parent::__construct();
-		$this->setTemplate('order/orderdetails.phtml');
-	}
+    function __construct()
+    {
+        parent::__construct();
+        $this->setTemplate('order/orderdetails.phtml');
+    }
 
-	public function getOrder()
-	{
-		$id = $this->getRequest()->getParam('order_id');
-		return Mage::getModel('order/order')->load($id);
-	}
+    public function getOrder()
+    {
+        $id = $this->getRequest()->getParam('order_id');
+        return Mage::getModel('order/order')->load($id);
+    }
 
-	public function setSubtotal(){
+    public function setSubtotal(){
         $order = $this->getOrder();
         $items = $order->getItems();
         foreach($items as $key=>$item){
-            $this->subtotal += $this->getTotalByQuantityPrice($item['quantity'],$item['price']);
+            $this->subtotal += $this->getTotalByQuantityPrice($item['quantity'],$item['price']/$item['quantity']);
         }
         return $this;
     }
