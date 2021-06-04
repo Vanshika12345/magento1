@@ -1,0 +1,75 @@
+<config>
+	<menu>
+		<vendor>
+			<title>Vendor</title>
+			<sort_order>71</sort_order>
+			<children>
+				<vendor>
+					<title>Manage Vendor</title>
+					<sort_order>100</sort_order>
+					<action>vendor/adminhtml_vendor</action>
+				</vendor>
+				
+				<vendor_attribute>
+					<title>Manage Attribute</title>
+					<sort_order>100</sort_order>
+					<action>vendor/adminhtml_vendor_attribute</action>
+				</vendor_attribute>
+
+				<vendor_set>
+					<title>Manage Attribute set</title>
+					<sort_order>100</sort_order>
+					<action>vendor/adminhtml_vendor_set</action>
+				</vendor_set>
+				<vendor_product_manage>
+					<title>Manage Vendor Product</title>
+					<sort_order>200</sort_order>
+					<action>vendor/adminhtml_vendor_product</action>
+				</vendor_product_manage>
+				<vendor_product_attributes>
+					<title>Vendor Product Attributes</title>
+					<sort_order>300</sort_order>
+					<children>
+						<attributes>
+							<title>Manage Attributes</title>
+							<action>vendor/adminhtml_product_attribute</action>
+						</attributes>
+						<set>
+							<title>Manage Attribute Sets</title>
+							<action>vendor/adminhtml_product_set</action>
+						</set>
+					</children>
+				</vendor_product_attributes>
+			</children>
+		</vendor>
+	</menu>
+	<acl>
+		<resources>
+			<all>
+				<title>Allow Everything</title>
+			</all>
+			<admin>
+				<children>
+					<vendor translate="title">
+						<title>Vendor</title>
+						<sort_order>1000</sort_order>
+						<children>
+							<alert translate="title">
+								<title>Manage Vendor</title>
+							</alert>
+
+							<alert translate="title">
+								<title>Manage Attribute</title>
+							</alert>
+
+							<alert translate="title">
+								<title>Manage Attribute set</title>
+							</alert>
+							
+						</children>
+					</vendor>
+				</children>
+			</admin>
+		</resources>
+	</acl>
+</config>
