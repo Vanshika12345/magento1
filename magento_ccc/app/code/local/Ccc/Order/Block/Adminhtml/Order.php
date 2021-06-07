@@ -5,11 +5,11 @@ class Ccc_Order_Block_Adminhtml_Order extends Mage_Adminhtml_Block_Widget_Grid_C
 
 	public function __construct()
 	{
-		parent::__construct();
 		$this->_controller = 'adminhtml_order';
 		$this->_blockGroup = 'order';
 		$this->_headerText = "Manage Orders";
-		$this->_addButtonLabel = Mage::helper('sales')->__('Create New Order');
+		$this->_addButtonLabel = Mage::helper('order')->__('Create New Order');
+		parent::__construct();
 	}
 
 	public function getCreateUrl()

@@ -8,7 +8,8 @@ class Ccc_Order_Model_Order extends Mage_Core_Model_Abstract{
 	protected $orderItems = null;
 	protected $orderBillingAddress = null;
 	protected $orderShippingAddress = null;
-	
+	protected $orderStatus = null;
+	protected $orderLastStatus = null;
 	protected function _construct(){
 		$this->_init('order/order');
 	}
@@ -114,6 +115,44 @@ class Ccc_Order_Model_Order extends Mage_Core_Model_Abstract{
 		$collection = Mage::getModel('order/order_item')->getCollection()
 			->addFieldToFilter('order_id', ['eq' => $this->order_id]);
 		return $collection;
+	}
+
+	public function setOrderStatus(Ccc_Order_Model_Order_Status $status)
+	{
+		$this->orderStatus = $status;
+		return $this;
+	}
+
+	public function getOrderStatus()
+	{
+		if ($this->orderStatus) {
+			return $this->orderStatus;
+		}
+		if (!$this->order_id) {
+			return false;
+		}
+		$collection = Mage::getModel('order/order_status')->getCollection()->addFieldToFilter('order_id',['eq'=>$this->order_id]);	
+		//$this->setOrderStatus($collection->getItems());
+		return $collection->getItems();
+	}
+
+	public function setLastStatus(Ccc_Order_Model_Order_Status $status)
+	{	
+		$this->orderLastStatus = $status;
+		return $this;
+	}
+
+	public function getLastStatus()
+	{
+		if ($this->orderLastStatus) {
+			return $this->orderLastStatus;
+		}
+		if (!$this->order_id) {
+			return false;
+		}	
+		$collection = Mage::getModel('order/order_status')->getCollection()->addFieldToFilter('order_id',['eq'=>$this->order_id]);	
+		$this->setOrderStatus($collection->getLastItem());
+		return $collection->getLastItem();
 	}
 }
 

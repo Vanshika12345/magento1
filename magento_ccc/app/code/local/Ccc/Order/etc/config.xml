@@ -2,7 +2,7 @@
 <config>
 	<modules>
 		<Ccc_Order>
-			<version>0.0.7</version>
+			<version>0.0.8</version>
 		</Ccc_Order>
 	</modules>
 	<admin>
@@ -85,6 +85,9 @@
 					<cart_address>
 						<table>cart_address</table>
 					</cart_address>
+					<order_status>
+						<table>order_status</table>
+					</order_status>
 				</entities>
 			</ccc_order_resource>
 		</models>

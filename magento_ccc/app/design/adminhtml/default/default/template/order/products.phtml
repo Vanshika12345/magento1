@@ -1,38 +1,38 @@
 <?php $products = $this->getProducts();?>
 <div class="entry-edit">
-            <div class="entry-edit-head">
-                <h4 class="icon-head head-products">Items Ordered</h4>
-            </div>
-        </div>
+        	<div class="entry-edit-head">
+            	<h4 class="icon-head head-products">Items Ordered</h4>
+        	</div>
+    	</div>
     <div class="grid np">
-    <div class="hor-scroll">
-        <table cellspacing="0" class="data order-tables">
-            <thead>
-                <tr class="headings">
-                    <th>Product</th>
-                    <th>SKU</th>
-                    <th><span class="nobr">Original Price</span></th>
-                    <th>Price</th>
-                    <th class="a-center">Qty</th>
-                    <th>Row Total </th>
-                </tr>
+  	<div class="hor-scroll">
+    	<table cellspacing="0" class="data order-tables">
+	        <thead>
+            	<tr class="headings">
+	                <th>Product</th>
+	                <th>SKU</th>
+	                <th><span class="nobr">Original Price</span></th>
+	                <th>Price</th>
+	                <th class="a-center">Qty</th>
+                	<th>Row Total </th>
+           		</tr>
 
-            </thead>
+        	</thead>
             <tbody class="even">
                 
-                    <?php foreach($products as $item):?>
+                	<?php foreach($products as $item):?>
 
-                        <tr class="border">
-                            <td><?php echo $this->getProductName($item->product_id);?></td>
-                            <td><?php echo $this->getProductSKU($item->product_id);?></td>
-                            <td>$<?php echo $item->getPrice()/$item->getQuantity();?></td>
-                            <td>$<?php echo $item->getPrice();?></td>
-                            <td><?php echo $item->getQuantity();?></td>
-                            <td>$ <?php echo $item->getPrice();?></td>
-                            <td></td>
-                        </tr>
-                    <?php endforeach;?>
-                        
+                		<tr class="border">
+	                		<td><?php echo $this->getProductName($item->product_id);?></td>
+	                		<td><?php echo $this->getProductSKU($item->product_id);?></td>
+	                		<td>$<?php echo $item->getPrice()/$item->getQuantity();?></td>
+	                		<td>$<?php echo $item->getPrice();?></td>
+	                		<td><?php echo $item->getQuantity();?></td>
+                			<td>$ <?php echo $item->getPrice();?></td>
+                			<td></td>
+                		</tr>
+                	<?php endforeach;?>
+                		
             </tbody>
         </table>
   </div>
